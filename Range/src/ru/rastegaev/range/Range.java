@@ -1,11 +1,8 @@
 package ru.rastegaev.range;
 
-import java.util.Arrays;
-
 public class Range {
     private double from;
     private double to;
-
 
     public Range(double from, double to) {
         this.from = from;
@@ -16,20 +13,8 @@ public class Range {
         System.out.printf("Задан диапазон чисел от %.2f до %.2f%n", from, to);
     }
 
-    public void printIntersectionInterval() {
-        System.out.printf("Интервал пересечения: от %.2f до %.2f%n", from, to);
-    }
-
-    public void printIntervalSplicing() {
-        System.out.println("Интервал объединения: от " + from + " до " + to);
-    }
-
     public String toString() {
         return "от " + from + " до " + to;
-    }
-
-    public void printDifferenceInterval() {
-
     }
 
     public double getFrom() {
