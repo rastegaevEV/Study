@@ -1,4 +1,6 @@
-package ru.rastegaev.range;
+package ru.rastegaev.range.main;
+
+import ru.rastegaev.range.Range;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -37,13 +39,16 @@ public class Main {
         double to2 = scanner.nextDouble();
 
         Range range2 = new Range(from2, to2);
-        
-        System.out.println("Интервал пересечения: " + Arrays.toString(range.getIntersectionInterval(range2)));
 
-        System.out.println("Интервал объединения: " + Arrays.toString(range.getIntervalSplicing(range2)));
+        if (range.getIntersection(range2) != null) {
+            range.getIntersection(range2).printIntersection();
+        } else {
+            System.out.println("Null");
+        }
 
-        System.out.println("Разность интервалов: " + Arrays.toString(range.getDifferenceInterval(range2)));
+        System.out.println("Интервал объединения: " + Arrays.toString(range.getSplicing(range2)));
 
+        System.out.println("Разность интервалов: " + Arrays.toString(range.getDifference(range2)));
 
 
     }

@@ -13,6 +13,10 @@ public class Range {
         System.out.printf("Задан диапазон чисел от %.2f до %.2f%n", from, to);
     }
 
+    public void printIntersection() {
+        System.out.println("Интервал пересечения от " + from + " до " + to);
+    }
+
     public String toString() {
         return "от " + from + " до " + to;
     }
@@ -41,77 +45,47 @@ public class Range {
         return number >= from && number <= to;
     }
 
-    public Range[] getIntersectionInterval(Range range2) {
-        if ((range2.from >= this.from) && (range2.from <= this.to) && (range2.to >= this.to)) {
-            Range[] intersectionRange = new Range[1];
-            intersectionRange[0] = new Range (range2.from, this.to);
-            return intersectionRange;
-        } else if ((this.from >= range2.from && this.from <= range2.to) && !(this.to >= range2.from && this.to <= range2.to)) {
-            Range[] intersectionRange = new Range[1];
-            intersectionRange[0] = new Range (this.from, range2.to);
-            return intersectionRange;
-        } else if ((range2.from >= this.from && range2.from <= this.to) && (range2.to >= this.from && range2.to <= this.to)) {
-            Range[] intersectionRange = new Range[1];
-            intersectionRange[0] = range2;
-            return intersectionRange;
-        } else if (range2.from <= this.from && range2.to >= this.to) {
-            Range[] intersectionRange = new Range[1];
-            intersectionRange[0] = this;
-            return intersectionRange;
+    public Range getIntersection(Range range) {
+        if ((range.from >= this.from) && (range.from <= this.to) && (range.to >= this.to)) {
+            return new Range(range.from, this.to);
+        } else if ((this.from >= range.from && this.from <= range.to) && !(this.to >= range.from && this.to <= range.to)) {
+            return new Range(this.from, range.to);
+        } else if ((range.from >= this.from && range.from <= this.to) && (range.to >= this.from && range.to <= this.to)) {
+            return new Range(range.from, range.to);
+        } else if (range.from <= this.from && range.to >= this.to) {
+            return new Range(this.from, this.to);
         } else {
             return null;
         }
     }
 
-    public Range[] getIntervalSplicing(Range range2) {
-
-        if ((range2.from >= this.from) && (range2.from <= this.to) && (range2.to >= this.to)) {
-            Range[] splicingRange = new Range[1];
-            splicingRange[0] = new Range(this.from, range2.to);
-            return splicingRange;
-        } else if ((this.from >= range2.from && this.from <= range2.to) && !(this.to >= range2.from && this.to <= range2.to)) {
-            Range[] splicingRange = new Range[1];
-            splicingRange[0] = new Range(range2.from, this.to);
-            return splicingRange;
-        } else if ((range2.from >= this.from && range2.from <= this.to) && (range2.to >= this.from && range2.to <= this.to)) {
-            Range[] splicingRange = new Range[1];
-            splicingRange[0] = this;
-            return splicingRange;
-        } else if (range2.from <= this.from && range2.to >= this.to) {
-            Range[] splicingRange = new Range[1];
-            splicingRange[0] = range2;
-            return splicingRange;
+    public Range[] getSplicing(Range range) {
+        if ((range.from >= this.from) && (range.from <= this.to) && (range.to >= this.to)) {
+            return new Range[]{new Range(this.from, range.to)};
+        } else if ((this.from >= range.from && this.from <= range.to) && !(this.to >= range.from && this.to <= range.to)) {
+            return new Range[]{new Range(range.from, this.to)};
+        } else if ((range.from >= this.from && range.from <= this.to) && (range.to >= this.from && range.to <= this.to)) {
+            return new Range[]{new Range(this.from, this.to)};
+        } else if (range.from <= this.from && range.to >= this.to) {
+            return new Range[]{new Range(range.from, range.to)};
         } else {
-            Range[] splicingRange = new Range[2];
-            splicingRange[0] = this;
-            splicingRange[1] = range2;
-            return splicingRange;
+            return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
         }
     }
 
-    public Range[] getDifferenceInterval(Range range2) {
-        if ((range2.from >= this.from) && (range2.from <= this.to) && (range2.to >= this.to)) {
-            Range[] differenceRange = new Range[1];
-            differenceRange[0] = new Range (this.from, range2.from);
-            return differenceRange;
-        } else if ((this.from >= range2.from && this.from <= range2.to) && !(this.to >= range2.from && this.to <= range2.to)) {
-            Range[] differenceRange = new Range[1];
-            differenceRange[0] = new Range (range2.from, this.to);
-            return differenceRange;
-        } else if ((range2.from >= this.from && range2.from <= this.to) && (range2.to >= this.from && range2.to <= this.to)) {
-            Range[] differenceRange = new Range[2];
-            differenceRange[0] = new Range (this.from, range2.from);
-            differenceRange[1] = new Range (range2.to, this.to);
-            return differenceRange;
-        }  else if (range2.from <= this.from && range2.to >= this.to) {
-            Range[] differenceRange = new Range[2];
-            differenceRange[0] = new Range (range2.from, this.from);
-            differenceRange[1] = new Range (this.to, range2.to);
-            return differenceRange;
+    public Range[] getDifference(Range range) {
+        if ((range.from >= this.from) && (range.from <= this.to) && (range.to >= this.to)) {
+            return new Range[]{new Range(this.from, range.from)};
+        } else if ((range.from <= this.from && range.to >= this.from && range.to <= this.to)) {
+            return new Range[]{new Range(range.to, this.to)};
+        } else if ((this.from >= range.from && this.from <= range.to) && !(this.to >= range.from && this.to <= range.to)) {
+            return new Range[]{new Range(range.from, this.to)};
+        } else if ((range.from >= this.from && range.from <= this.to) && (range.to >= this.from && range.to <= this.to)) {
+            return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
+        } else if (range.from <= this.from && range.to >= this.to) {
+            return null;
         } else {
-            Range[] differenceRange = new Range[1];
-            differenceRange[0] = this;
-            return differenceRange;
+            return new Range[]{new Range(this.from, this.to)};
         }
     }
 }
