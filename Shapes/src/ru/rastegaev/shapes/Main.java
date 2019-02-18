@@ -1,4 +1,4 @@
-package ru.rastegaevev.shapes;
+package ru.rastegaev.shapes;
 
 public class Main {
     public static void main (String[] args) {
