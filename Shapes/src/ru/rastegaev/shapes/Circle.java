@@ -26,4 +26,10 @@ public class Circle implements Shapes {
     public double getArea() {
         return Math.PI * (Math.pow(radius, 2));
     }
+
+    @Override
+    public String toString() {
+        return "Фигура - круг"
+                + "\nРадиус = " + radius;
+    }
 }

@@ -26,4 +26,10 @@ public class Square implements Shapes {
     public double getArea() {
         return side * side;
     }
+
+    @Override
+    public String toString() {
+        return "Фигура - квадрат"
+                + "\nСторона квадрата = " + side;
+    }
 }

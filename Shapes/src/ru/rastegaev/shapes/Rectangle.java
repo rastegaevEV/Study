@@ -28,4 +28,11 @@ public class Rectangle implements Shapes {
     public double getArea() {
         return height * width;
     }
+
+    @Override
+    public String toString() {
+        return "Фигура - прямоугольник"
+                + "\nВысота = " + height
+                + "\nШирина = " + width;
+    }
 }

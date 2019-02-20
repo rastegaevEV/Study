@@ -10,7 +10,6 @@ public class Triangle implements Shapes {
     private double x3;
     private double y3;
 
-
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         this.x1 = x1;
         this.y1 = y1;
@@ -50,5 +49,10 @@ public class Triangle implements Shapes {
         return Math.sqrt(halfPerimeter * (halfPerimeter - ((Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2))))) *
                 (halfPerimeter - (Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)))) *
                 (halfPerimeter - (Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)))));
+    }
+
+    @Override
+    public String toString() {
+        return "Фигура - треугольник";
     }
 }
