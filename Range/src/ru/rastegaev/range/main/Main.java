@@ -41,12 +41,12 @@ public class Main {
         Range range2 = new Range(from2, to2);
 
         if (range.getIntersection(range2) != null) {
-            range.getIntersection(range2).printIntersection();
+            System.out.println("Интервал пересечения: " + range.getIntersection(range2).toString());
         } else {
             System.out.println("Null");
         }
 
-        System.out.println("Интервал объединения: " + Arrays.toString(range.getSplicing(range2)));
+        System.out.println("Интервал объединения: " + Arrays.toString(range.getUnion(range2)));
 
         System.out.println("Разность интервалов: " + Arrays.toString(range.getDifference(range2)));
     }
