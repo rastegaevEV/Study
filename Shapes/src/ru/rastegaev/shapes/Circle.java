@@ -30,6 +30,7 @@ public class Circle implements Shapes {
     @Override
     public String toString() {
         return "Фигура - круг"
-                + "\nРадиус = " + radius;
+                + "\nРадиус = " + radius
+                + "\nПлощадь = " + this.getArea();
     }
 }

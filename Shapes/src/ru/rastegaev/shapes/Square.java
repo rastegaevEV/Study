@@ -30,6 +30,7 @@ public class Square implements Shapes {
     @Override
     public String toString() {
         return "Фигура - квадрат"
-                + "\nСторона квадрата = " + side;
+                + "\nСторона квадрата = " + side
+                + "\nПлощадь = " + this.getArea();
     }
 }

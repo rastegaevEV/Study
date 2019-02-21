@@ -1,6 +1,7 @@
 package ru.rastegaev.shapes;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Triangle implements Shapes {
     private double x1;
@@ -53,6 +54,6 @@ public class Triangle implements Shapes {
 
     @Override
     public String toString() {
-        return "Фигура - треугольник";
+        return "Фигура - треугольник \n" + "Площадь " + this.getArea();
     }
 }

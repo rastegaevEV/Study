@@ -33,6 +33,7 @@ public class Rectangle implements Shapes {
     public String toString() {
         return "Фигура - прямоугольник"
                 + "\nВысота = " + height
-                + "\nШирина = " + width;
+                + "\nШирина = " + width
+                + "\nПлощадь = " + this.getArea();
     }
 }
