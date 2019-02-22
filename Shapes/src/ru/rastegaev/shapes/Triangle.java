@@ -56,4 +56,22 @@ public class Triangle implements Shapes {
     public String toString() {
         return "Фигура - треугольник \n" + "Площадь " + this.getArea();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+        return Double.compare(triangle.x1, x1) == 0 &&
+                Double.compare(triangle.y1, y1) == 0 &&
+                Double.compare(triangle.x2, x2) == 0 &&
+                Double.compare(triangle.y2, y2) == 0 &&
+                Double.compare(triangle.x3, x3) == 0 &&
+                Double.compare(triangle.y3, y3) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x1, y1, x2, y2, x3, y3);
+    }
 }
