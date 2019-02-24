@@ -2,7 +2,7 @@ package ru.rastegaev.shapes;
 
 import java.util.Objects;
 
-public class Circle implements Shapes {
+public class Circle implements Shape {
     private double radius;
 
     public Circle(double radius) {
@@ -31,8 +31,12 @@ public class Circle implements Shapes {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Circle circle = (Circle) o;
         return Double.compare(circle.radius, radius) == 0;
     }
@@ -45,7 +49,7 @@ public class Circle implements Shapes {
     @Override
     public String toString() {
         return "Фигура - круг"
-                + "\nРадиус = " + radius
-                + "\nПлощадь = " + this.getArea();
+                + System.lineSeparator() + "Радиус = " + radius
+                + System.lineSeparator() + "Площадь = " + this.getArea();
     }
 }

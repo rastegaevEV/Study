@@ -2,7 +2,7 @@ package ru.rastegaev.shapes;
 
 import java.util.Objects;
 
-public class Rectangle implements Shapes {
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -48,8 +48,8 @@ public class Rectangle implements Shapes {
     @Override
     public String toString() {
         return "Фигура - прямоугольник"
-                + "\nВысота = " + height
-                + "\nШирина = " + width
-                + "\nПлощадь = " + this.getArea();
+                + System.lineSeparator() + "Высота = " + height
+                + System.lineSeparator() + "Ширина = " + width
+                + System.lineSeparator() + "Площадь = " + this.getArea();
     }
 }

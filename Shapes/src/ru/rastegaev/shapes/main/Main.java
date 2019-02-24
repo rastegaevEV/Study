@@ -5,18 +5,18 @@ import ru.rastegaev.shapes.*;
 import java.util.Arrays;
 
 public class Main {
-    public static Shapes getMaxAreaShape(Shapes[] shapes) {
-        Arrays.sort(shapes, new SortByArea());
+    public static Shape getMaxAreaShape(Shape[] shapes) {
+        Arrays.sort(shapes, new SortByAreaComparator());
         return shapes[shapes.length - 1];
     }
 
-    public static Shapes getSecondAreaShape(Shapes[] shapes) {
-        Arrays.sort(shapes, new SortByArea());
+    public static Shape getSecondAreaShape(Shape[] shapes) {
+        Arrays.sort(shapes, new SortByAreaComparator());
         return shapes[shapes.length - 2];
     }
 
     public static void main(String[] args) {
-        Shapes[] shapes = new Shapes[5];
+        Shape[] shapes = new Shape[5];
 
         shapes[0] = new Square(5);
         shapes[1] = new Rectangle(7, 3);

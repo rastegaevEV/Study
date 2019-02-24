@@ -2,7 +2,7 @@ package ru.rastegaev.shapes;
 
 import java.util.Objects;
 
-public class Square implements Shapes {
+public class Square implements Shape {
     private double side;
 
     public Square(double side) {
@@ -31,8 +31,12 @@ public class Square implements Shapes {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Square square = (Square) o;
         return Double.compare(square.side, side) == 0;
     }
@@ -45,8 +49,8 @@ public class Square implements Shapes {
     @Override
     public String toString() {
         return "Фигура - квадрат"
-                + "\nСторона квадрата = " + side
-                + "\nПлощадь = " + this.getArea();
+                + System.lineSeparator() + "Сторона квадрата = " + side
+                + System.lineSeparator() + "Площадь = " + this.getArea();
 
     }
 }
