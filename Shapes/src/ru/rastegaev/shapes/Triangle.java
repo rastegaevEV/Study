@@ -1,7 +1,6 @@
 package ru.rastegaev.shapes;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Triangle implements Shape {
     private double x1;
@@ -20,6 +19,10 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
+    public double getSide(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    }
+
     @Override
     public double getHeight() {
         double[] coordinates = {y1, y2, y3};
@@ -36,26 +39,27 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)) +
-                Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)) +
-                Math.sqrt(Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2));
+        return getSide(x1, y1, x2, y2) + getSide(x2, y2, x3, y3) + getSide(x3, y3, x1, y1);
     }
 
     @Override
     public double getArea() {
-        double halfPerimeter = ((Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)) +
-                Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)) +
-                Math.sqrt(Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2)))) / 2;
+        double halfPerimeter = getPerimeter() / 2;
 
-        return Math.sqrt(halfPerimeter * (halfPerimeter - ((Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2))))) *
-                (halfPerimeter - (Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)))) *
-                (halfPerimeter - (Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2)))));
+        return Math.sqrt(halfPerimeter * (halfPerimeter - getSide(x1, y1, x2, y2)) *
+                (halfPerimeter - getSide(x2, y2, x3, y3)) *
+                (halfPerimeter - getSide(x3, y3, x1, y1)));
     }
 
     @Override
     public String toString() {
         return "Фигура - треугольник"
-                + System.lineSeparator() + "Площадь " + this.getArea();
+                + System.lineSeparator() + "Площадь = " + this.getArea()
+                + System.lineSeparator() + "Координаты вершин треугольника:"
+                + System.lineSeparator() + "Вершина 1: " + "(" + x1 + ", " + y1 + ")"
+                + System.lineSeparator() + "Вершина 2: " + "(" + x2 + ", " + y2 + ")"
+                + System.lineSeparator() + "Вершина 3: " + "(" + x3 + ", " + y3 + ")";
+
     }
 
     @Override
@@ -67,16 +71,22 @@ public class Triangle implements Shape {
             return false;
         }
         Triangle triangle = (Triangle) o;
-        return Double.compare(triangle.x1, x1) == 0 &&
-                Double.compare(triangle.y1, y1) == 0 &&
-                Double.compare(triangle.x2, x2) == 0 &&
-                Double.compare(triangle.y2, y2) == 0 &&
-                Double.compare(triangle.x3, x3) == 0 &&
-                Double.compare(triangle.y3, y3) == 0;
+        return (x1 == triangle.x1) && (x2 == triangle.x2) && (x3 == triangle.x3) &&
+                (y1 == triangle.y1) && (y2 == triangle.y2) && (y3 == triangle.y3);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x1, y1, x2, y2, x3, y3);
+        final int prime = 31;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(x1);
+        hash = prime * hash + Double.hashCode(x2);
+        hash = prime * hash + Double.hashCode(x3);
+        hash = prime * hash + Double.hashCode(y1);
+        hash = prime * hash + Double.hashCode(y2);
+        hash = prime * hash + Double.hashCode(y3);
+
+        return hash;
     }
 }

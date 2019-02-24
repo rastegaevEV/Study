@@ -1,7 +1,5 @@
 package ru.rastegaev.shapes;
 
-import java.util.Objects;
-
 public class Square implements Shape {
     private double side;
 
@@ -38,12 +36,12 @@ public class Square implements Shape {
             return false;
         }
         Square square = (Square) o;
-        return Double.compare(square.side, side) == 0;
+        return side == square.side;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(side);
+        return Double.hashCode(side);
     }
 
     @Override

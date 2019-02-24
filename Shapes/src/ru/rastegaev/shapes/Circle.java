@@ -1,7 +1,5 @@
 package ru.rastegaev.shapes;
 
-import java.util.Objects;
-
 public class Circle implements Shape {
     private double radius;
 
@@ -38,12 +36,12 @@ public class Circle implements Shape {
             return false;
         }
         Circle circle = (Circle) o;
-        return Double.compare(circle.radius, radius) == 0;
+        return radius == circle.radius;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(radius);
+        return Double.hashCode(radius);
     }
 
     @Override

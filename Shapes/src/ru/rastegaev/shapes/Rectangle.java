@@ -1,7 +1,5 @@
 package ru.rastegaev.shapes;
 
-import java.util.Objects;
-
 public class Rectangle implements Shape {
     private double width;
     private double height;
@@ -36,13 +34,16 @@ public class Rectangle implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rectangle rectangle = (Rectangle) o;
-        return Double.compare(rectangle.width, width) == 0 &&
-                Double.compare(rectangle.height, height) == 0;
+        return (width == rectangle.width) && (height == rectangle.height);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height);
+        final int prime = 31;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(width);
+        hash = prime * hash + Double.hashCode(height);
+        return hash;
     }
 
     @Override
