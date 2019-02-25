@@ -49,6 +49,5 @@ public class Square implements Shape {
         return "Фигура - квадрат"
                 + System.lineSeparator() + "Сторона квадрата = " + side
                 + System.lineSeparator() + "Площадь = " + this.getArea();
-
     }
 }

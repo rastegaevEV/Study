@@ -1,7 +1,5 @@
 package ru.rastegaev.shapes;
 
-import java.util.Arrays;
-
 public class Triangle implements Shape {
     private double x1;
     private double y1;
@@ -25,16 +23,12 @@ public class Triangle implements Shape {
 
     @Override
     public double getHeight() {
-        double[] coordinates = {y1, y2, y3};
-        Arrays.sort(coordinates);
-        return coordinates[2] - coordinates[0];
+        return Math.max(Math.max(y1, y2), y3) - Math.min(Math.min(y1, y2), y3);
     }
 
     @Override
     public double getWidth() {
-        double[] coordinates = {x1, x2, x3};
-        Arrays.sort(coordinates);
-        return coordinates[2] - coordinates[0];
+        return Math.max(Math.max(x1, x2), x3) - Math.min(Math.min(x1, x2), x3);
     }
 
     @Override
@@ -59,7 +53,6 @@ public class Triangle implements Shape {
                 + System.lineSeparator() + "Вершина 1: " + "(" + x1 + ", " + y1 + ")"
                 + System.lineSeparator() + "Вершина 2: " + "(" + x2 + ", " + y2 + ")"
                 + System.lineSeparator() + "Вершина 3: " + "(" + x3 + ", " + y3 + ")";
-
     }
 
     @Override
@@ -73,7 +66,6 @@ public class Triangle implements Shape {
         Triangle triangle = (Triangle) o;
         return (x1 == triangle.x1) && (x2 == triangle.x2) && (x3 == triangle.x3) &&
                 (y1 == triangle.y1) && (y2 == triangle.y2) && (y3 == triangle.y3);
-
     }
 
     @Override
