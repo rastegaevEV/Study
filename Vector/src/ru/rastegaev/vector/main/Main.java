@@ -2,23 +2,15 @@ package ru.rastegaev.vector.main;
 
 import ru.rastegaev.vector.Vector;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
-        Vector v = new Vector(5);
 
-        System.out.println(Arrays.toString(v.getVector()));
+        Vector vector1 = new Vector(new double[]{1, 2, 3, 4});
+        Vector vector2 = new Vector(5, new double[]{2, 3, 4, 5, 6});
 
-        double[] numbers = new double[] {1, 2, 3, 4};
+        System.out.println(vector1.getSumVector(vector2).toString());
 
-        Vector v1 = new Vector(numbers);
 
-        System.out.println(Arrays.toString(v1.getVector()));
-
-        Vector v2 = new Vector(8, numbers);
-
-        System.out.println(Arrays.toString(v2.getVector()));
 
 
     }
