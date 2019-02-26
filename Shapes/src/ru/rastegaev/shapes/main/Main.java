@@ -11,7 +11,7 @@ public class Main {
     }
 
     public static Shape getSecondPerimeterShape(Shape[] shapes) {
-        Arrays.sort(shapes, new SortByAreaComparator());
+        Arrays.sort(shapes, new SortByPerimeterComparator());
         return shapes[shapes.length - 2];
     }
 

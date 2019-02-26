@@ -35,10 +35,9 @@ public class Rectangle implements Shape {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else {
-            Rectangle rectangle = (Rectangle) o;
-            return (width == rectangle.width) && (height == rectangle.height);
         }
+        Rectangle rectangle = (Rectangle) o;
+        return (width == rectangle.width) && (height == rectangle.height);
     }
 
     @Override

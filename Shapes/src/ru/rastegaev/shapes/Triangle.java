@@ -61,11 +61,10 @@ public class Triangle implements Shape {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else {
-            Triangle triangle = (Triangle) o;
-            return (x1 == triangle.x1) && (x2 == triangle.x2) && (x3 == triangle.x3) &&
-                    (y1 == triangle.y1) && (y2 == triangle.y2) && (y3 == triangle.y3);
         }
+        Triangle triangle = (Triangle) o;
+        return (x1 == triangle.x1) && (x2 == triangle.x2) && (x3 == triangle.x3) &&
+                (y1 == triangle.y1) && (y2 == triangle.y2) && (y3 == triangle.y3);
     }
 
     @Override

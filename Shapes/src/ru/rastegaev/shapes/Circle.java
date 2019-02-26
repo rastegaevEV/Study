@@ -33,10 +33,9 @@ public class Circle implements Shape {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else {
-            Circle circle = (Circle) o;
-            return radius == circle.radius;
         }
+        Circle circle = (Circle) o;
+        return radius == circle.radius;
     }
 
     @Override

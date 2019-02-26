@@ -33,10 +33,9 @@ public class Square implements Shape {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
-        } else {
-            Square square = (Square) o;
-            return side == square.side;
         }
+        Square square = (Square) o;
+        return side == square.side;
     }
 
     @Override
