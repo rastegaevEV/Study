@@ -40,7 +40,8 @@ public class Vector {
         return Arrays.toString(vector);
     }
 
-    public Vector getSumVector(Vector vector) {
+    public Vector getSum(Vector vector) { //todo Двойной счетчик????
+
         double[] sumVector = new double[Math.max(this.vector.length, vector.getSize())];
         for (int i = 0; i <= this.vector.length - 1; ++i) {
             sumVector[i] += this.vector[i];
@@ -48,8 +49,13 @@ public class Vector {
         for (int i = 0; i <= vector.getVector().length - 1; ++i) {
             sumVector[i] += vector.getVector()[i];
         }
-
         return new Vector(sumVector);
     }
+
+    public Vector getDifference (Vector vector) {
+        double[] differenceVector = new double[Math.max(this.vector.length, vector.getVector().length)];
+        return new Vector(differenceVector); //todo доделать!!!
+    }
+
 
 }
