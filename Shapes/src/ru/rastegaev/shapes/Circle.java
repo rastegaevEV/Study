@@ -31,12 +31,12 @@ public class Circle implements Shape {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+        } else if (o == null || getClass() != o.getClass()) {
             return false;
+        } else {
+            Circle circle = (Circle) o;
+            return radius == circle.radius;
         }
-        Circle circle = (Circle) o;
-        return radius == circle.radius;
     }
 
     @Override

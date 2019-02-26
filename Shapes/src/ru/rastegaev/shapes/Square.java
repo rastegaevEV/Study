@@ -31,12 +31,12 @@ public class Square implements Shape {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+        } else if (o == null || getClass() != o.getClass()) {
             return false;
+        } else {
+            Square square = (Square) o;
+            return side == square.side;
         }
-        Square square = (Square) o;
-        return side == square.side;
     }
 
     @Override

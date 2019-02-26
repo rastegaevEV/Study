@@ -16,15 +16,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Shape[] shapes = new Shape[5];
+        Shape[] shapes = {new Square(5),
+                new Rectangle(7, 3),
+                new Triangle(2, 1, 50, 3, 7, 50),
+                new Circle(56),
+                new Square(16)};
 
-        shapes[0] = new Square(5);
-        shapes[1] = new Rectangle(7, 3);
-        shapes[2] = new Triangle(2, 1, 50, 3, 7, 50);
-        shapes[3] = new Circle(56);
-        shapes[4] = new Square(16);
-
-        System.out.println("Фигура с наибольшей площадью:" + System.lineSeparator() + getMaxAreaShape(shapes).toString() + System.lineSeparator());
-        System.out.println("Фигура со 2-м по величине периметром: " + System.lineSeparator() + getSecondPerimeterShape(shapes).toString());
+        System.out.println("Фигура с наибольшей площадью:");
+        System.out.println(getMaxAreaShape(shapes).toString());
+        System.out.println();
+        System.out.println("Фигура со 2-м по величине периметром:");
+        System.out.println(getSecondPerimeterShape(shapes).toString());
     }
 }
