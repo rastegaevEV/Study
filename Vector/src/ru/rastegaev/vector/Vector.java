@@ -40,11 +40,10 @@ public class Vector {
         return Arrays.toString(vector);
     }
 
-    public Vector getSum(Vector vector) { //todo Двойной счетчик????
-
+    public Vector getSum(Vector vector) {
         double[] sumVector = new double[Math.max(this.vector.length, vector.getSize())];
         for (int i = 0; i <= this.vector.length - 1; ++i) {
-            sumVector[i] += this.vector[i];
+            sumVector[i] += this.vector[i];// todo System.arraycopy???
         }
         for (int i = 0; i <= vector.getVector().length - 1; ++i) {
             sumVector[i] += vector.getVector()[i];
@@ -52,10 +51,43 @@ public class Vector {
         return new Vector(sumVector);
     }
 
-    public Vector getDifference (Vector vector) {
+    public Vector getDifference(Vector vector) {
         double[] differenceVector = new double[Math.max(this.vector.length, vector.getVector().length)];
-        return new Vector(differenceVector); //todo доделать!!!
+        for (int i = 0; i <= this.vector.length - 1; ++i) {
+            differenceVector[i] += this.vector[i];
+        }
+        for (int i = 0; i <= vector.getVector().length - 1; ++i) {
+            differenceVector[i] -= vector.getVector()[i];
+        }
+        return new Vector(differenceVector);
     }
 
+    public Vector getScalarMultiplication(double scalar) {
+        double[] scalarMultiplicationVector = new double[this.vector.length];
+        for (int i = 0; i <= scalarMultiplicationVector.length - 1; ++i) {
+            scalarMultiplicationVector[i] = this.vector[i] * scalar;
+        }
+        return new Vector(scalarMultiplicationVector);
+    }
 
+    public Vector getTurn() {
+        double[] turnVector = new double[this.vector.length];
+
+        for (int i = 0; i <= turnVector.length - 1; ++i) {
+            turnVector[i] = this.vector[i] * -1;
+        }
+        return new Vector(turnVector);
+    }
+
+    public double getLength() {
+        double sumElements = 0;
+        for (int i = 0; i <= this.vector.length - 1; ++i) {
+            sumElements += Math.pow(this.vector[i], 2);
+        }
+        return Math.sqrt(sumElements);
+    }
+
+    public void setVectorComponent(int index, double component) {
+        this.vector[index] = component;
+    }
 }
