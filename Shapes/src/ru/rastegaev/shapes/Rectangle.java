@@ -33,7 +33,8 @@ public class Rectangle implements Shape {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (o == null || getClass() != o.getClass()) {
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Rectangle rectangle = (Rectangle) o;
