@@ -41,22 +41,18 @@ public class Vector {
     }
 
     public Vector getSum(Vector vector) {
-        double[] sumVector = new double[Math.max(this.vector.length, vector.getSize())];
-        for (int i = 0; i <= this.vector.length - 1; ++i) {
-            sumVector[i] += this.vector[i];// todo System.arraycopy???
-        }
-        for (int i = 0; i <= vector.getVector().length - 1; ++i) {
+        double[] sumVector = Arrays.copyOf(this.vector, Math.max(this.vector.length, vector.getSize()));
+
+        for (int i = 0; i <= vector.getSize() - 1; ++i) {
             sumVector[i] += vector.getVector()[i];
         }
         return new Vector(sumVector);
     }
 
     public Vector getDifference(Vector vector) {
-        double[] differenceVector = new double[Math.max(this.vector.length, vector.getVector().length)];
-        for (int i = 0; i <= this.vector.length - 1; ++i) {
-            differenceVector[i] += this.vector[i];
-        }
-        for (int i = 0; i <= vector.getVector().length - 1; ++i) {
+        double[] differenceVector = Arrays.copyOf(this.vector, Math.max(this.vector.length, vector.getSize()));
+
+        for (int i = 0; i <= vector.getSize() - 1; ++i) {
             differenceVector[i] -= vector.getVector()[i];
         }
         return new Vector(differenceVector);
@@ -89,5 +85,57 @@ public class Vector {
 
     public void setVectorComponent(int index, double component) {
         this.vector[index] = component;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Vector vector1 = (Vector) o;
+        if (this.vector.length == vector1.getSize()) {
+            for (int i = 0; i <= this.vector.length - 1; ++i) {
+                if (this.vector[i] != vector1.getVector()[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(vector);
+    }
+
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        double[] sumVector = Arrays.copyOf(vector1.getVector(), Math.max(vector1.getSize(), vector2.getSize()));
+
+        for (int i = 0; i <= sumVector.length - 1; ++i) {
+            sumVector[i] += vector2.getVector()[i];
+        }
+        return new Vector(sumVector);
+    }
+
+    public static Vector getDifference(Vector vector1, Vector vector2) {
+        double[] differenceVector = Arrays.copyOf(vector1.getVector(), Math.max(vector1.getSize(), vector2.getSize()));
+
+        for (int i = 0; i <= differenceVector.length - 1; ++i) {
+            differenceVector[i] -= vector2.getVector()[i];
+        }
+        return new Vector(differenceVector);
+    }
+
+    public static Vector getScalarMultiplication(Vector vector1, Vector vector2) {
+        double[] scalarMultiplicationVector = Arrays.copyOf(vector1.getVector(), Math.max(vector1.getSize(), vector2.getSize()));
+
+        for (int i = 0; i <= scalarMultiplicationVector.length - 1; ++i) {
+            scalarMultiplicationVector[i] *= vector2.getVector()[i];
+        }
+        return new Vector(scalarMultiplicationVector);
     }
 }

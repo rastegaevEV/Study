@@ -4,20 +4,33 @@ import ru.rastegaev.vector.Vector;
 
 public class Main {
     public static void main(String[] args) {
-
+        Vector vector0 = new Vector(5);
         Vector vector1 = new Vector(new double[]{1, 2, 3, 4});
         Vector vector2 = new Vector(5, new double[]{2, 3, 4, 5, 6});
+        Vector vector3 = new Vector(new double[]{1, 2, 3, 4});
 
-        System.out.println(vector1.getSum(vector2).toString());
-        System.out.println(vector1.getDifference(vector2).toString());
-        System.out.println(vector1.getScalarMultiplication(2).toString());
-        System.out.println(vector1.getTurn().toString());
+        System.out.println("Созданы новые векторы: ");
+        System.out.println("Вектор 0: " + vector0.toString());
+        System.out.println("Вектор 1: " + vector1.toString());
+        System.out.println("Вектор 2: " + vector2.toString());
+        System.out.println("Вектор 3: " + vector3.toString());
+        System.out.println();
+
+        System.out.println("Сумма векторов 1 и 2: " + vector1.getSum(vector2).toString());
+        System.out.println("Разница векторов 1 и 2: " + vector1.getDifference(vector2).toString());
+        System.out.println("Умножение вектора 1 на скаляр 2: " + vector1.getScalarMultiplication(2).toString());
+        System.out.println("Развернутый вектор 1: " + vector1.getTurn().toString());
         System.out.println("Длина вектора 1 = " + vector1.getLength());
-        vector1.setVectorComponent(0, 10);
-        System.out.println(vector1.toString());
 
+        vector0.setVectorComponent(2, 5);
+        System.out.println("Изменение компоненты вектора 0 по заданному индексу: " + vector0.toString());
 
+        System.out.println("Векторы 1 и 3 равны: " + vector1.equals(vector3));
+        System.out.println("Векторы 1 и 2 равны: " + vector1.equals(vector2));
 
+        System.out.println("Сумма векторов 1 и 2: " + Vector.getSum(vector1, vector2).toString());
+        System.out.println("Разность векторов 1 и 2: " + Vector.getDifference(vector1, vector2).toString());
+        System.out.println("Скалярное произведение векторов 1 и 2: " + Vector.getScalarMultiplication(vector1, vector2).toString());
 
 
     }
