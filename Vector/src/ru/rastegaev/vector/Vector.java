@@ -6,6 +6,9 @@ public class Vector {
     private double[] vector;
 
     public Vector(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException ("Размерность вектора меньше либо равна 0");
+        }
         this.vector = new double[n];
     }
 
@@ -21,6 +24,12 @@ public class Vector {
     }
 
     public Vector(int n, double[] vector) {
+        if (n <= 0) {
+            throw new IllegalArgumentException ("Размерность вектора меньше либо равна 0");
+        }
+        if (vector.length > n) {
+            throw new IllegalArgumentException ("Размерность вектора меньше колличеста переданных компонент");
+        }
         this.vector = new double[n];
         for (int i = 0; i <= vector.length - 1; ++i) {
             this.vector[i] = vector[i];
