@@ -48,6 +48,6 @@ public class Main {
 
         System.out.println("Интервал объединения: " + Arrays.toString(range.getUnion(range2)));
 
-        System.out.println("Разность интервалов: " + Arrays.toString(range.getDifference(range2)));
+        System.out.println("Разность интервалов: " + Arrays.toString(range.getDiff(range2)));
     }
 }
