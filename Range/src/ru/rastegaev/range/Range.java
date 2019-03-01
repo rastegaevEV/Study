@@ -67,7 +67,7 @@ public class Range {
             return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
         } else if (range.from > this.from) {
             return new Range[]{new Range(this.from, range.from)};
-        } else if ((range.from < this.from) && (this.to > range.to)) {
+        } else if ((range.from <= this.from) && (this.to > range.to)) {
             return new Range[]{new Range(range.to, this.to)};
         }
         return new Range[0];
