@@ -30,7 +30,7 @@ public class Main {
 
         System.out.println("Сумма векторов 1 и 2: " + Vector.getSum(vector1, vector2).toString());
         System.out.println("Разность векторов 1 и 2: " + Vector.getDifference(vector1, vector2).toString());
-        System.out.println("Скалярное произведение векторов 1 и 2: " + Vector.getScalarMultiplication(vector1, vector2).toString());
+        System.out.println("Скалярное произведение векторов 1 и 2: " + Vector.getScalarMultiplication(vector1, vector2));
 
 
     }
