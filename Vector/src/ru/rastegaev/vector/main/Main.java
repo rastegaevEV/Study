@@ -19,20 +19,37 @@ public class Main {
         System.out.println("Вектор 3: " + vector3.toString());
         System.out.println();
 
-        System.out.println("Сумма векторов 1 и 2: " + Arrays.toString(vector1.getSum(vector2)));
-        System.out.println("Разница векторов 1 и 2: " + Arrays.toString(vector1.getDifference(vector2)));
-        System.out.println("Умножение вектора 1 на скаляр " + scalar + ": " + Arrays.toString(vector1.getScalarMultiplication(scalar)));
-        System.out.println("Развернутый вектор 1: " + Arrays.toString(vector1.getTurn()));
+        vector1.getSum(vector2);
+        System.out.println("К вектору 1 прибавили вектор 2: " + vector1.toString());
+
+        vector1.getDifference(vector2);
+        System.out.println("Из вектора 1 вычли вектор 2: " + vector1.toString());
+
+        vector1.getScalarMultiplication(scalar);
+        System.out.println("Умножение вектора 1 на скаляр " + scalar + ": " + vector1.toString());
+
+        vector1.getTurn();
+        System.out.println("Развернутый вектор 1: " + vector1.toString());
+
         System.out.println("Длина вектора 1 = " + vector1.getLength());
 
-        vector0.setVectorComponent(2, 5);
-        System.out.println("Изменение компоненты вектора 0 по заданному индексу: " + vector0.toString());
+        vector0.setVectorComponent(0, 2);
+        vector0.setVectorComponent(1, 3);
+        vector0.setVectorComponent(2, 4);
+        vector0.setVectorComponent(3, 5);
+        vector0.setVectorComponent(4, 6);
+        System.out.println("Изменение компонент вектора 0 по заданному индексу: " + vector0.toString());
 
         System.out.println("Векторы 1 и 3 равны: " + vector1.equals(vector3));
-        System.out.println("Векторы 1 и 2 равны: " + vector1.equals(vector2));
+        System.out.println("Векторы 0 и 2 равны: " + vector0.equals(vector2));
 
-        System.out.println("Сумма векторов 1 и 2: " + Vector.getSum(vector1, vector2).toString());
-        System.out.println("Разность векторов 1 и 2: " + Vector.getDifference(vector1, vector2).toString());
+        System.out.println();
+        System.out.println("Статические методы.");
+        System.out.println("Вектор 1: " + vector1.toString());
+        System.out.println("Вектор 2: " + vector2.toString());
+
+        System.out.println("К вектору 1 прибавили вектор 2: " + Vector.getSum(vector1, vector2).toString());
+        System.out.println("Из вектора 1 вычли вектор 2: " + Vector.getDifference(vector1, vector2).toString());
         System.out.println("Скалярное произведение векторов 1 и 2: " + Vector.getScalarMultiplication(vector1, vector2));
 
 

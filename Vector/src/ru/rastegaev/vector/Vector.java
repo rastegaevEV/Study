@@ -47,39 +47,34 @@ public class Vector {
                 .replace("]", "}");
     }
 
-    public double[] getSum(Vector vector) {
-        this.componentArray = Arrays.copyOf(this.componentArray, Math.max(this.componentArray.length, vector.getSize()));
-        double[] sumComponentsArray = new double[this.getSize()];
-        for (int i = 0; i < vector.getSize(); ++i) {
-            sumComponentsArray[i] = this.componentArray[i] + vector.componentArray[i];
+    public void getSum(Vector vector) {
+        if (this.componentArray.length != vector.componentArray.length) {
+            this.componentArray = Arrays.copyOf(this.componentArray, Math.max(this.componentArray.length, vector.getSize()));
         }
-        return sumComponentsArray;
+        for (int i = 0; i < vector.getSize(); ++i) {
+            this.componentArray[i] += vector.componentArray[i];
+        }
     }
 
-    public double[] getDifference(Vector vector) {
-        this.componentArray = Arrays.copyOf(this.componentArray, Math.max(this.componentArray.length, vector.getSize()));
-        double[] differenceComponentArray = new double[this.getSize()];
-        for (int i = 0; i < vector.getSize(); ++i) {
-            differenceComponentArray[i] = this.componentArray[i] - vector.componentArray[i];
+    public void getDifference(Vector vector) {
+        if (this.componentArray.length != vector.componentArray.length) {
+            this.componentArray = Arrays.copyOf(this.componentArray, Math.max(this.componentArray.length, vector.getSize()));
         }
-        return differenceComponentArray;
+        for (int i = 0; i < vector.getSize(); ++i) {
+            this.componentArray[i] -= vector.componentArray[i];
+        }
     }
 
-    public double[] getScalarMultiplication(double scalar) {
-        double[] scalarMultiplicationArray = new double[this.componentArray.length];
+    public void getScalarMultiplication(double scalar) {
         for (int i = 0; i < this.getSize(); ++i) {
-            scalarMultiplicationArray[i] = this.componentArray[i] * scalar;
+            this.componentArray[i] *= scalar;
         }
-        return scalarMultiplicationArray;
     }
 
-    public double[] getTurn() {
-        double[] turnVector = new double[this.componentArray.length];
-
-        for (int i = 0; i < turnVector.length; ++i) {
-            turnVector[i] = this.componentArray[i] * -1;
+    public void getTurn() {
+        for (int i = 0; i < componentArray.length; ++i) {
+            this.componentArray[i] *= -1;
         }
-        return turnVector;
     }
 
     public double getLength() {
@@ -124,11 +119,13 @@ public class Vector {
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {
-        return new Vector(vector1.getSum(vector2));
+        vector1.getSum(vector2);
+        return new Vector(vector1);
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
-        return new Vector(vector1.getDifference(vector2));
+        vector1.getDifference(vector2);
+        return new Vector(vector1);
     }
 
     public static double getScalarMultiplication(Vector vector1, Vector vector2) {
@@ -136,7 +133,6 @@ public class Vector {
         for (int i = 0; i < Math.min(vector1.getSize(), vector2.getSize()); ++i) {
             scalarMultiplication += vector1.componentArray[i] * vector2.componentArray[i];
         }
-
         return scalarMultiplication;
     }
 }
