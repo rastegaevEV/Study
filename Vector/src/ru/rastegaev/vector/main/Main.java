@@ -2,8 +2,6 @@ package ru.rastegaev.vector.main;
 
 import ru.rastegaev.vector.Vector;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
         Vector vector0 = new Vector(5);
@@ -19,25 +17,25 @@ public class Main {
         System.out.println("Вектор 3: " + vector3.toString());
         System.out.println();
 
-        vector1.getSum(vector2);
+        vector1.sum(vector2);
         System.out.println("К вектору 1 прибавили вектор 2: " + vector1.toString());
 
-        vector1.getDifference(vector2);
+        vector1.difference(vector2);
         System.out.println("Из вектора 1 вычли вектор 2: " + vector1.toString());
 
         vector1.getScalarMultiplication(scalar);
         System.out.println("Умножение вектора 1 на скаляр " + scalar + ": " + vector1.toString());
 
-        vector1.getTurn();
+        vector1.turn();
         System.out.println("Развернутый вектор 1: " + vector1.toString());
 
         System.out.println("Длина вектора 1 = " + vector1.getLength());
 
-        vector0.setVectorComponent(0, 2);
-        vector0.setVectorComponent(1, 3);
-        vector0.setVectorComponent(2, 4);
-        vector0.setVectorComponent(3, 5);
-        vector0.setVectorComponent(4, 6);
+        vector0.setComponent(0, 2);
+        vector0.setComponent(1, 3);
+        vector0.setComponent(2, 4);
+        vector0.setComponent(3, 5);
+        vector0.setComponent(4, 6);
         System.out.println("Изменение компонент вектора 0 по заданному индексу: " + vector0.toString());
 
         System.out.println("Векторы 1 и 3 равны: " + vector1.equals(vector3));
@@ -51,7 +49,5 @@ public class Main {
         System.out.println("К вектору 1 прибавили вектор 2: " + Vector.getSum(vector1, vector2).toString());
         System.out.println("Из вектора 1 вычли вектор 2: " + Vector.getDifference(vector1, vector2).toString());
         System.out.println("Скалярное произведение векторов 1 и 2: " + Vector.getScalarMultiplication(vector1, vector2));
-
-
     }
 }
