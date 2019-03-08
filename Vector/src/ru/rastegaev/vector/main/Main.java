@@ -23,7 +23,7 @@ public class Main {
         vector1.difference(vector2);
         System.out.println("Из вектора 1 вычли вектор 2: " + vector1.toString());
 
-        vector1.getScalarMultiplication(scalar);
+        vector1.scalarMultiplication(scalar);
         System.out.println("Умножение вектора 1 на скаляр " + scalar + ": " + vector1.toString());
 
         vector1.turn();

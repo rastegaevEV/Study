@@ -46,7 +46,7 @@ public class Vector {
 
     public void sum(Vector vector) {
         if (this.components.length < vector.components.length) {
-            this.components = Arrays.copyOf(this.components, Math.max(this.components.length, vector.getSize()));
+            this.components = Arrays.copyOf(this.components, vector.getSize());
         }
         for (int i = 0; i < vector.getSize(); ++i) {
             this.components[i] += vector.components[i];
@@ -55,21 +55,21 @@ public class Vector {
 
     public void difference(Vector vector) {
         if (this.components.length < vector.components.length) {
-            this.components = Arrays.copyOf(this.components, Math.max(this.components.length, vector.getSize()));
+            this.components = Arrays.copyOf(this.components, vector.getSize());
         }
         for (int i = 0; i < vector.getSize(); ++i) {
             this.components[i] -= vector.components[i];
         }
     }
 
-    public void getScalarMultiplication(double scalar) {
+    public void scalarMultiplication(double scalar) {
         for (int i = 0; i < this.getSize(); ++i) {
             this.components[i] *= scalar;
         }
     }
 
     public void turn() {
-        getScalarMultiplication(-1);
+        scalarMultiplication(-1);
     }
 
     public double getLength() {
@@ -115,15 +115,13 @@ public class Vector {
 
     public static Vector getSum(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
-        Vector vector2Copy = new Vector(vector2);
-        vector1Copy.sum(vector2Copy);
+        vector1Copy.sum(vector2);
         return new Vector(vector1Copy);
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
-        Vector vector2Copy = new Vector(vector2);
-        vector1Copy.difference(vector2Copy);
+        vector1Copy.difference(vector2);
         return new Vector(vector1Copy);
     }
 
