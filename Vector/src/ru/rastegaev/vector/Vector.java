@@ -62,14 +62,14 @@ public class Vector {
         }
     }
 
-    public void scalarMultiplication(double scalar) {
+    public void multiplicationOnScalar(double scalar) {
         for (int i = 0; i < this.getSize(); ++i) {
             this.components[i] *= scalar;
         }
     }
 
     public void turn() {
-        scalarMultiplication(-1);
+        multiplicationOnScalar(-1);
     }
 
     public double getLength() {
