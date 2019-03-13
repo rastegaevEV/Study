@@ -22,16 +22,16 @@ public class ArrayListHome {
             }
             System.out.println(numbers);
 
-            ArrayList<Integer> unicNambers = new ArrayList<>();
+            ArrayList<Integer> uniqueNumbers = new ArrayList<>(numbers);
 
-            for (int i = 0; i < numbers.size(); ++i) {
-                for (int j = 0; j < numbers.size(); ++j) {
-                    if (numbers.get(i).equals(unicNambers.get(j))) {
-                        unicNambers.add(numbers.get(i));
+            for (int i = 0; i < uniqueNumbers.size(); ++i) {
+                for (int j = 0; j <uniqueNumbers.size(); ++j) {
+                    if (uniqueNumbers.get(i).equals(uniqueNumbers.get(j)) && i != j) {
+                        uniqueNumbers.remove(j);
                     }
                 }
             }
-            System.out.println(unicNambers);
+            System.out.println(uniqueNumbers);
         }
     }
 }
