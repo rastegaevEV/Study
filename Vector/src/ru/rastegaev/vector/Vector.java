@@ -116,13 +116,13 @@ public class Vector {
     public static Vector getSum(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
         vector1Copy.sum(vector2);
-        return new Vector(vector1Copy);
+        return vector1Copy;
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
         vector1Copy.difference(vector2);
-        return new Vector(vector1Copy);
+        return vector1Copy;
     }
 
     public static double getScalarMultiplication(Vector vector1, Vector vector2) {
