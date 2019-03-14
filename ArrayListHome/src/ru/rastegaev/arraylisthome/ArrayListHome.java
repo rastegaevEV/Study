@@ -1,6 +1,7 @@
+package ru.rastegaev.arraylisthome;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +16,10 @@ public class ArrayListHome {
             }
             System.out.println(numbers);
 
-            for(int i = 0; i < numbers.size(); ++i) {
-                if(numbers.get(i) % 2 == 0) {
+            for (int i = 0; i < numbers.size(); ++i) {
+                if (numbers.get(i) % 2 == 0) {
                     numbers.remove(i);
+                    --i;
                 }
             }
             System.out.println(numbers);
@@ -25,9 +27,10 @@ public class ArrayListHome {
             ArrayList<Integer> uniqueNumbers = new ArrayList<>(numbers);
 
             for (int i = 0; i < uniqueNumbers.size(); ++i) {
-                for (int j = 0; j <uniqueNumbers.size(); ++j) {
+                for (int j = 0; j < uniqueNumbers.size(); ++j) {
                     if (uniqueNumbers.get(i).equals(uniqueNumbers.get(j)) && i != j) {
                         uniqueNumbers.remove(j);
+                        --j;
                     }
                 }
             }
