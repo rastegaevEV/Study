@@ -8,15 +8,14 @@ import java.util.Scanner;
 
 public class ArrayListHome {
     public static void main(String[] args) {
-        try {
-            try (Scanner scanner = new Scanner(new FileInputStream("ArrayListHome\\file.txt"))) {
-                ArrayList<String> numbers = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new FileInputStream("ArrayListHome\\file.txt"))) {
+            ArrayList<String> numbers = new ArrayList<>();
 
-                while (scanner.hasNext()) {
-                    numbers.add(scanner.nextLine());
-                }
-                System.out.println(numbers.toString().replace(",", ""));
+            while (scanner.hasNextLine()) {
+                numbers.add(scanner.nextLine());
             }
+            System.out.println(numbers.toString().replace(",", ""));
+
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + e.getMessage());
         }
