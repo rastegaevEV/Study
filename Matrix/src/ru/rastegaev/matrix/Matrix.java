@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Vector;
+package ru.rastegaev.matrix;
 
 public class Matrix {
     private double[][] numbers;
@@ -18,6 +17,10 @@ public class Matrix {
 
     public Matrix (double[][] matrix) {
         this.numbers = matrix;
+    }
+
+    public Matrix (Vector[] vector) {
+
     }
 
     public double[][] getNumbers() {
