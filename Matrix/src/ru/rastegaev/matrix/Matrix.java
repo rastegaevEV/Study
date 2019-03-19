@@ -1,29 +1,29 @@
 package ru.rastegaev.matrix;
 
+import java.util.Arrays;
+
 public class Matrix {
-    private double[][] numbers;
+    private Vector[] vectors;
 
     public Matrix (int n, int m) {
-        this.numbers = new double[n][m];
-    }
-
-    public Matrix (Matrix matrix) {
-        for (int i = 0; i < numbers.length; ++i) {
-            for (int j = 0; j < numbers[i].length; ++j) {
-                this.numbers[i][j] = matrix.numbers[i][j];
-            }
+        vectors = new Vector[n];
+        for (int i = 0; i < n; ++i) {
+            vectors[i] = new Vector(m);
         }
     }
 
-    public Matrix (double[][] matrix) {
-        this.numbers = matrix;
+    public Matrix (Matrix matrix) {
+        this.vectors = new Vector[matrix.vectors.length];
+        for (int i = 0; i < vectors.length; ++i) {
+            //todo доделать
+        }
     }
 
-    public Matrix (Vector[] vector) {
-
+    public Vector[] getVectorsArray() {
+        return vectors;
     }
 
-    public double[][] getNumbers() {
-        return numbers;
+    public void setVectors(int index, Vector vector) {
+        this.vectors[index] = vector;
     }
 }
