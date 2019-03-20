@@ -1,5 +1,7 @@
 package ru.rastegaev.matrix;
 
+import java.util.Arrays;
+
 public class Matrix {
     private Vector[] vector;
 
@@ -31,15 +33,16 @@ public class Matrix {
         }
     }
 
-    public int getSize() {
-        return vector.length; //todo
+    public String getSize() {
+        return this.vector.length + "x" + vector[0].getSize();
+
     }
 
-    public Vector[] getVectorsArray() {
-        return vector;
+    public Vector getVector(int index) {
+        return vector[index];
     }
 
-    public void setVectors(int index, Vector vector) {
+    public void setVector(int index, Vector vector) {
         this.vector[index] = vector;
     }
 
@@ -59,12 +62,53 @@ public class Matrix {
         }
     }
 
-    public void multiplicationOnVector (Vector vector) {
+    @Override
+    public String toString() {
+        return Arrays.toString(this.vector)
+                .replace("[", "{")
+                .replace("]", "}");
+    }
+
+    public void multiplicationOnVector(Vector vector) {
         for (int i = 0; i < this.vector.length; ++i) {
             for (int j = 0; j < this.vector[i].getSize(); ++j) {
                 this.vector[i].setComponent(j, this.vector[i].getComponent(j) * vector.getComponent(j));
             }
         } //todo адаптировать все входящие векторы(данные) под длинну массива this.vector!
+    }
+
+    public void sum(Matrix matrix) {
+        for (int i = 0; i < this.vector.length; ++i) {
+            this.vector[i].sum(matrix.vector[i]);
+        }
+    }
+
+    public void difference(Matrix matrix) {
+        for (int i = 0; i < this.vector.length; ++i) {
+            this.vector[i].difference(matrix.vector[i]);
+        }
+    }
+
+    public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
+        Matrix matrix1Copy = new Matrix(matrix1);
+        matrix1Copy.sum(matrix2);
+        return matrix1Copy;
+    }
+
+    public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
+        Matrix matrix1Copy = new Matrix(matrix1);
+        matrix1Copy.difference(matrix2);
+        return matrix1Copy;
+    }
+
+    public static Matrix getMultiplication (Matrix matrix1, Matrix matrix2) {
+        Matrix matrix1Copy = new Matrix(matrix1);
+        for (int i = 0; i < matrix1Copy.vector.length; ++i) {
+            for (int j = 0; j < matrix1Copy.vector.length; ++j) {
+                matrix1Copy.setVector(j, Vector.getMultiplication(matrix1Copy.vector[j], matrix2.vector[j]));
+            }// todo доделать!!!!!!!!!!!!!!!!!!!
+        }
+        return matrix1Copy;
     }
 
 }

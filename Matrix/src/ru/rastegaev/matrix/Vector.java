@@ -133,4 +133,12 @@ public class Vector {
         }
         return scalarMultiplication;
     }
+
+    public static Vector getMultiplication (Vector vector1, Vector vector2) {
+        Vector vector1Copy = new Vector(vector1);
+        for (int i = 0; i < vector1Copy.getSize(); ++i) {
+            vector1Copy.components[i] *= vector2.components[i];
+        }
+        return vector1Copy;
+    }
 }
