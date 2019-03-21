@@ -6,9 +6,9 @@ public class Matrix {
     private Vector[] vector;
 
     public Matrix(int n, int m) {
-        this.vector = new Vector[n];
-        for (int i = 0; i < n; ++i) {
-            vector[i] = new Vector(m);
+        this.vector = new Vector[m];
+        for (int i = 0; i < m; ++i) {
+            vector[i] = new Vector(n);
         }
     }
 
@@ -46,12 +46,20 @@ public class Matrix {
         this.vector[index] = vector;
     }
 
-    public Vector getColumnVector(int index) {
+    public Vector getColumn(int index) {
         Vector columnVector = new Vector(this.vector.length);
         for (int i = 0; i < this.vector.length; ++i) {
             columnVector.setComponent(i, this.vector[i].getComponent(index));
         }
         return columnVector;
+    }
+
+    public Matrix getTranspose() {
+        Matrix transposeMatrix = new Matrix(this.vector.length, this.vector[0].getSize());
+        for (int i = 0; i < this.vector[0].getSize(); ++i) {
+            transposeMatrix.setVector(i, getColumn(i));
+        }
+        return transposeMatrix;
     }
 
     public void multiplicationOnScalar(int scalar) {
@@ -60,6 +68,12 @@ public class Matrix {
                 this.vector[i].setComponent(j, this.vector[i].getComponent(j) * scalar);
             }
         }
+    }
+
+    public int getDeterminant() {
+        int determinant = 0;
+        return determinant;
+        //todo про определитель: https://www.kontrolnaya-rabota.ru/s/matrix/determination/
     }
 
     @Override
@@ -101,12 +115,10 @@ public class Matrix {
         return matrix1Copy;
     }
 
-    public static Matrix getMultiplication (Matrix matrix1, Matrix matrix2) {
+    public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
         Matrix matrix1Copy = new Matrix(matrix1);
         for (int i = 0; i < matrix1Copy.vector.length; ++i) {
-            for (int j = 0; j < matrix1Copy.vector.length; ++j) {
-                matrix1Copy.setVector(j, Vector.getMultiplication(matrix1Copy.vector[j], matrix2.vector[j]));
-            }// todo доделать!!!!!!!!!!!!!!!!!!!
+            matrix1Copy.setVector(i, Vector.getMultiplication(matrix1Copy.vector[i], matrix2.vector[i]));
         }
         return matrix1Copy;
     }

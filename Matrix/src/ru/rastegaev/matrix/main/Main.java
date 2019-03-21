@@ -5,7 +5,7 @@ import ru.rastegaev.matrix.Vector;
 
 public class Main {
     public static void main(String[] args) {
-        Matrix matrix0 = new Matrix(3, 3);
+        Matrix matrix0 = new Matrix(3, 2);
         Matrix matrix1 = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
         Matrix matrix2 = new Matrix(matrix0);
         Matrix matrix3 = new Matrix(new Vector[]{new Vector(new double[]{3, 5, 7}), new Vector(new double[]{1, 2, 7})});
@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Размерность матрицы 4: " + matrix4.getSize());
 
         System.out.println("Получение столбца матрицы 3 по индексу 1");
-        System.out.println(matrix3.getColumnVector(1).toString()); // получение столбца
+        System.out.println(matrix3.getColumn(1).toString()); // получение столбца
 
         System.out.println("Умножение матрицы 3 на скаляр 2");
         matrix3.multiplicationOnScalar(2);
@@ -51,6 +51,8 @@ public class Main {
         System.out.println("Матрица 4: " + matrix4.toString());
 
         System.out.println(Matrix.getMultiplication(matrix1, matrix4).toString());
+
+        System.out.println(matrix1.getTranspose().toString());
 
     }
 }
