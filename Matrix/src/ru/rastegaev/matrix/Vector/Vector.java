@@ -1,4 +1,4 @@
-package ru.rastegaev.matrix;
+package ru.rastegaev.matrix.Vector;
 
 import java.util.Arrays;
 
@@ -17,6 +17,13 @@ public class Vector {
             throw new IllegalArgumentException("Размерность переданного вектора меньше либо равна 0");
         }
         this.components = Arrays.copyOf(vector.components, vector.getSize());
+    }
+
+    public Vector(int size, Vector vector) {
+        if (vector.getSize() <= 0) {
+            throw new IllegalArgumentException("Размерность переданного вектора меньше либо равна 0");
+        }
+        this.components = Arrays.copyOf(vector.components, size);
     }
 
     public Vector(double[] components) {
