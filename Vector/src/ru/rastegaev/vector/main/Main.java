@@ -1,6 +1,6 @@
 package ru.rastegaev.vector.main;
 
-import ru.rastegaev.vector.Vector;
+import ru.rastegaev.vector.main.vector.Vector;
 
 public class Main {
     public static void main(String[] args) {

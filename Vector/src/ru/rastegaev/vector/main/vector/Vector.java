@@ -1,4 +1,4 @@
-package ru.rastegaev.matrix.Vector;
+package ru.rastegaev.vector.main.vector;
 
 import java.util.Arrays;
 

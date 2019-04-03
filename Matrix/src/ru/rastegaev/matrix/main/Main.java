@@ -1,7 +1,7 @@
 package ru.rastegaev.matrix.main;
 
 import ru.rastegaev.matrix.Matrix;
-import ru.rastegaev.matrix.Vector.Vector;
+import ru.rastegaev.vector.main.vector.Vector;
 
 public class Main {
     public static void main(String[] args) {
