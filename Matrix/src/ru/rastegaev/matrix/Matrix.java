@@ -67,7 +67,8 @@ public class Matrix {
         if (index < 0) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
-        return strings[index];
+
+        return new Vector(strings[index]);
     }
 
     public void setString(int index, Vector vector) {
@@ -77,7 +78,7 @@ public class Matrix {
         if (index < 0) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
-        this.strings[index] = vector;
+        this.strings[index] = new Vector(vector);
     }
 
     public Vector getColumn(int index) {
@@ -92,7 +93,7 @@ public class Matrix {
         return columnVector;
     }
 
-    public Matrix getTranspose() {
+    public Matrix transpose() {
         Matrix transposeMatrix = new Matrix(this.strings.length, this.strings[0].getSize());
         for (int i = 0; i < this.strings[0].getSize(); ++i) {
             transposeMatrix.setString(i, getColumn(i));
@@ -101,10 +102,8 @@ public class Matrix {
     }
 
     public void multiplicationOnScalar(int scalar) {
-        for (Vector vector1 : this.strings) {
-            for (int j = 0; j < vector1.getSize(); ++j) {
-                vector1.setComponent(j, vector1.getComponent(j) * scalar);
-            }
+        for (Vector e : this.strings) {
+            e.multiplicationOnScalar(scalar);
         }
     }
 
@@ -119,9 +118,9 @@ public class Matrix {
         if (vector.getSize() != this.strings[0].getSize()) {
             throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью матрицы");
         }
-        for (Vector vector1 : this.strings) {
-            for (int j = 0; j < vector1.getSize(); ++j) {
-                vector1.setComponent(j, vector1.getComponent(j) * vector.getComponent(j));
+        for (Vector e : this.strings) {
+            for (int j = 0; j < e.getSize(); ++j) {
+                e.setComponent(j, e.getComponent(j) * vector.getComponent(j));
             }
         }
     }

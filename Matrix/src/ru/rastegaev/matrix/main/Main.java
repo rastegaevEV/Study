@@ -52,7 +52,7 @@ public class Main {
 
         System.out.println(Matrix.getMultiplication(matrix1, matrix4).toString());
 
-        System.out.println(matrix1.getTranspose().toString());
+        System.out.println(matrix1.transpose().toString());
 
     }
 }
