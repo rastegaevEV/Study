@@ -64,7 +64,7 @@ public class Matrix {
     }
 
     public Vector getString(int index) {
-        if (index < 0) {
+        if (index < 0 || index >= this.strings.length) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
 
@@ -75,14 +75,14 @@ public class Matrix {
         if (vector.getSize() <= 0) {
             throw new IllegalArgumentException("Не верная размерность переданного вектора");
         }
-        if (index < 0) {
+        if (index < 0 || index >= this.strings.length) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
         this.strings[index] = new Vector(vector);
     }
 
     public Vector getColumn(int index) {
-        if (index < 0) {
+        if (index < 0 || index >= this.strings.length) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
 
@@ -165,11 +165,13 @@ public class Matrix {
         if (matrix1.strings[0].getSize() != matrix2.strings.length) {
             throw new IllegalArgumentException("Матрицы не согласованы");
         }
-        Matrix matrix1Copy = new Matrix(matrix1);// todo исправить и доделать
-        for (int i = 0; i < matrix1Copy.strings.length; ++i) {
-            matrix1Copy.setString(i, Vector.getMultiplication(matrix1Copy.strings[i], matrix2.strings[i]));
+        Matrix matrix2Copy = new Matrix(matrix1);// todo исправить и доделать, размерность конечной матрицы не верна. Разобраться с транспонированием
+        for (int i = 0; i < matrix1.strings[0].getSize(); ++i) {
+            for (int j = 0; j < matrix2.strings[0].getSize(); ++j) {
+                matrix2Copy.strings[i].setComponent(j, Vector.getScalarMultiplication(matrix1.strings[i], matrix2.getColumn(j)));
+            }
         }
-        return matrix1Copy;
+        return matrix2Copy;
     }
 
 }
