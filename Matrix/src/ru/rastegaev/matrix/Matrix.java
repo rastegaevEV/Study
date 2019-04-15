@@ -162,10 +162,10 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.strings[0].getSize() != matrix2.strings[0].getSize()) {
-            throw new IllegalArgumentException("Размерности матриц не совпадают");
+        if (matrix1.strings[0].getSize() != matrix2.strings.length) {
+            throw new IllegalArgumentException("Матрицы не согласованы");
         }
-        Matrix matrix1Copy = new Matrix(matrix1);
+        Matrix matrix1Copy = new Matrix(matrix1);// todo исправить и доделать
         for (int i = 0; i < matrix1Copy.strings.length; ++i) {
             matrix1Copy.setString(i, Vector.getMultiplication(matrix1Copy.strings[i], matrix2.strings[i]));
         }
