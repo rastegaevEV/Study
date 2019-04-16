@@ -4,7 +4,6 @@ import ru.rastegaev.vector.main.vector.Vector;
 
 import java.util.Arrays;
 
-
 public class Matrix {
     private Vector[] strings;
 
@@ -58,16 +57,18 @@ public class Matrix {
         }
     }
 
-    public String getSize() {
-        return this.strings.length + "x" + strings[0].getSize();
+    public int getColumnNumber() {
+        return this.strings[0].getSize();
+    }
 
+    public int getStringsNumber() {
+        return this.strings.length;
     }
 
     public Vector getString(int index) {
         if (index < 0 || index >= this.strings.length) {
             throw new IllegalArgumentException("Передан не верный индекс");
         }
-
         return new Vector(strings[index]);
     }
 
@@ -185,5 +186,4 @@ public class Matrix {
         }
         return matrix2Copy;
     }
-
 }

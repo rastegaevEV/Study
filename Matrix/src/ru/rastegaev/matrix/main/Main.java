@@ -18,7 +18,7 @@ public class Main {
         System.out.println("Матрица 3: " + matrix3.toString());
         System.out.println("Матрица 4: " + matrix4.toString());
 
-        System.out.println("Размерность матрицы 4: " + matrix4.getSize());
+        System.out.println("Размерность матрицы 4: " + matrix4.getColumnNumber() + "x" + matrix4.getStringsNumber());
 
         System.out.println("Получение столбца матрицы 3 по индексу 1");
         System.out.println(matrix3.getColumn(1).toString());
