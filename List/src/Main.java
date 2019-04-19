@@ -1,11 +1,16 @@
 public class Main {
     public static void main(String[] args) {
-        ListItem<String> data1 = new ListItem<>("fff");
-        ListItem<String> data2 = new ListItem<>("ddd", data1);
-        ListItem<String> data3 = new ListItem<>("ccc", data2);
-        SingleLinkedList<String> list = new SingleLinkedList<>(data3);
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
 
-        System.out.println(list);
+        list.addToTop(1);
+        list.addToTop(2);
+        list.addToTop(3);
+        list.addToTheEnd(9);
+
+        list.print();
+
+
+
 
 
 
