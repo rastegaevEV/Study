@@ -24,16 +24,70 @@ public class SingleLinkedList<T> {
         }
     }
 
-    public void addToTop (T data) {
+    public T getFirstItemData() {
+        return this.head.getData();
+    }
+
+    public T getDataByIndex(int index) {
+        if (index < 1 || index > this.count) {
+            throw new IllegalArgumentException("Такого индекса в списке нет");
+        }
+        int currentIndex = 1;
+        for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
+            if (currentIndex == index) {
+                return currentItem.getData();
+            }
+            ++currentIndex;
+        }
+        return null;
+    }
+
+    public T setDataByIndex(int index, T data) {
+        if (index < 1 || index > this.count) {
+            throw new IllegalArgumentException("Такого индекса в списке нет");
+        }
+        int currentIndex = 1;
+        for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
+            if (currentIndex == index) {
+                T oldData = currentItem.getData();
+                currentItem.setData(data);
+                return oldData;
+            }
+            ++currentIndex;
+        }
+        return null;
+    }
+
+    public T deleteElementByIndex(int index) {
+        if (index < 1 || index > this.count) {
+            throw new IllegalArgumentException("Такого индекса в списке нет");
+        }
+        int currentIndex = 1;
+        for (ListItem<T> currentItem = head, previousItem = null; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+            if (currentIndex == index) {
+                previousItem.setNext(currentItem.getNext());
+                return currentItem.getData();//todo доделать
+
+            }
+            ++currentIndex;
+        }
+        return null;
+    }
+
+    public int getSize() {
+        return this.count;
+    }
+
+    public void addToTop(T data) {
         this.head = new ListItem<>(data, head);
         ++this.count;
     }
 
-    public void addToTheEnd (T data) {
+    public void addToTheEnd(T data) {
         ListItem<T> item = new ListItem<>(data, null);
-        for (ListItem<T> item1 = head; item1 != null; item1 = item1.getNext()) {
-            if (item1.getNext() == null) {
-                item1.setNext(item);
+        for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
+            if (currentItem.getNext() == null) {
+                currentItem.setNext(item);
                 return;
             }
         }
