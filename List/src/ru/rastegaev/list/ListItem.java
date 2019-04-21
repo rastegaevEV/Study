@@ -1,3 +1,5 @@
+package ru.rastegaev.list;
+
 public class ListItem<T> {
     private T data;
     private ListItem<T> next;
