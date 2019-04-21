@@ -1,6 +1,6 @@
 package ru.rastegaev.list.Main;
 
-import ru.rastegaev.list.SingleLinkedList;
+import ru.rastegaev.list.List.SingleLinkedList;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class Main {
 
         list.print();
 
-        System.out.println("Удален элемент " + list.deleteElementByIndex(3));
+        System.out.println("Удален элемент " + list.deleteByIndex(3));
 
         list.print();
 

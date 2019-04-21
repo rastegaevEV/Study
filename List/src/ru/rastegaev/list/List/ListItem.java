@@ -1,15 +1,15 @@
-package ru.rastegaev.list;
+package ru.rastegaev.list.List;
 
 public class ListItem<T> {
     private T data;
     private ListItem<T> next;
 
-    public ListItem (T data, ListItem<T> next) {
+    public ListItem(T data, ListItem<T> next) {
         this.data = data;
         this.next = next;
     }
 
-    public ListItem (T data) {
+    public ListItem(T data) {
         this.data = data;
     }
 
@@ -25,7 +25,7 @@ public class ListItem<T> {
         return next;
     }
 
-    public void setNext (ListItem<T> next) {
+    public void setNext(ListItem<T> next) {
         this.next = next;
     }
 }

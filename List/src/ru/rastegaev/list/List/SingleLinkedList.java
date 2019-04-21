@@ -1,4 +1,4 @@
-package ru.rastegaev.list;
+package ru.rastegaev.list.List;
 
 public class SingleLinkedList<T> {
     private ListItem<T> head;
@@ -25,7 +25,7 @@ public class SingleLinkedList<T> {
     }
 
     public void print() {
-        for (ListItem<T> item = head; item != null; item = item.getNext()) {
+        for (ListItem<T> item = this.head; item != null; item = item.getNext()) {
             System.out.println(item.getData());
         }
     }
@@ -43,7 +43,7 @@ public class SingleLinkedList<T> {
             throw new IllegalArgumentException("Такого индекса в списке нет");
         }
         int currentIndex = 1;
-        for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
+        for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 return currentItem.getData();
             }
@@ -52,12 +52,12 @@ public class SingleLinkedList<T> {
         return null;
     }
 
-    public T setDataByIndex(int index, T data) {
+    public T setByIndex(int index, T data) {
         if (index < 1 || index > this.count) {
             throw new IllegalArgumentException("Такого индекса в списке нет");
         }
         int currentIndex = 1;
-        for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
+        for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 T oldData = currentItem.getData();
                 currentItem.setData(data);
@@ -68,7 +68,7 @@ public class SingleLinkedList<T> {
         return null;
     }
 
-    public T deleteElementByIndex(int index) {
+    public T deleteByIndex(int index) {
         if (index < 1 || index > this.count) {
             throw new IllegalArgumentException("Такого индекса в списке нет");
         }
