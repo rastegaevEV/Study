@@ -18,13 +18,13 @@ public class Main {
         System.out.println("Матрица 3: " + matrix3.toString());
         System.out.println("Матрица 4: " + matrix4.toString());
 
-        System.out.println("Размерность матрицы 4: " + matrix4.getColumnNumber() + "x" + matrix4.getStringsNumber());
+        System.out.println("Размерность матрицы 4: " + matrix4.getColumnsCount() + "x" + matrix4.getRowsCount());
 
         System.out.println("Получение столбца матрицы 3 по индексу 1");
         System.out.println(matrix3.getColumn(1).toString());
 
         System.out.println("Умножение матрицы 3 на скаляр 2");
-        matrix3.multiplicationOnScalar(2);
+        matrix3.multiplyOnScalar(2);
         System.out.println(matrix3.toString());
 
         System.out.println("Умножение матрицы 1 на вектор");
@@ -55,6 +55,8 @@ public class Main {
         System.out.println(Matrix.getMultiplication(matrix2, matrix5).toString());
 
         System.out.println(matrix1.transpose().toString());
+
+        System.out.println(matrix2.getColumn(2).toString());
 
 
     }

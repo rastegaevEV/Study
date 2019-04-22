@@ -5,22 +5,22 @@ import ru.rastegaev.vector.main.vector.Vector;
 import java.util.Arrays;
 
 public class Matrix {
-    private Vector[] strings;
+    private Vector[] rows;
 
-    public Matrix(int columns, int strings) {
-        if (columns <= 0 || strings <= 0) {
-            throw new IllegalArgumentException("Введена не верная размерность матрицы");
+    public Matrix(int columns, int rows) {
+        if (columns <= 0 || rows <= 0) {
+            throw new IllegalArgumentException("Количество столбцов или строк меньше либо равно 0");
         }
-        this.strings = new Vector[strings];
-        for (int i = 0; i < strings; ++i) {
-            this.strings[i] = new Vector(columns);
+        this.rows = new Vector[rows];
+        for (int i = 0; i < rows; ++i) {
+            this.rows[i] = new Vector(columns);
         }
     }
 
     public Matrix(Matrix matrix) {
-        this.strings = new Vector[matrix.strings.length];
-        for (int i = 0; i < strings.length; ++i) {
-            this.strings[i] = new Vector(matrix.strings[i]);
+        this.rows = new Vector[matrix.rows.length];
+        for (int i = 0; i < rows.length; ++i) {
+            this.rows[i] = new Vector(matrix.rows[i]);
         }
     }
 
@@ -32,12 +32,12 @@ public class Matrix {
             }
         }
         if (maxNumbersLength <= 0) {
-            throw new IllegalArgumentException("Не верная размерность матрицы");
+            throw new IllegalArgumentException("Размерность матрицы меньше или равна 0");
         }
 
-        this.strings = new Vector[numbers.length];
+        this.rows = new Vector[numbers.length];
         for (int i = 0; i < numbers.length; ++i) {
-            this.strings[i] = new Vector(maxNumbersLength, numbers[i]);
+            this.rows[i] = new Vector(maxNumbersLength, numbers[i]);
         }
     }
 
@@ -49,110 +49,110 @@ public class Matrix {
             }
         }
         if (maxVectorSize <= 0) {
-            throw new IllegalArgumentException("Не верная размерность матрицы");
+            throw new IllegalArgumentException("Неверная размерность матрицы");
         }
-        this.strings = new Vector[vectors.length];
+        this.rows = new Vector[vectors.length];
         for (int i = 0; i < vectors.length; ++i) {
-            this.strings[i] = new Vector(maxVectorSize, vectors[i]);
+            this.rows[i] = new Vector(maxVectorSize, vectors[i]);
         }
     }
 
-    public int getColumnNumber() {
-        return this.strings[0].getSize();
+    public int getColumnsCount() {
+        return this.rows[0].getSize();
     }
 
-    public int getStringsNumber() {
-        return this.strings.length;
+    public int getRowsCount() {
+        return this.rows.length;
     }
 
-    public Vector getString(int index) {
-        if (index < 0 || index >= this.strings.length) {
-            throw new IllegalArgumentException("Передан не верный индекс");
+    public Vector getRow(int index) {
+        if (index < 0 || index >= this.rows.length) {
+            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
-        return new Vector(strings[index]);
+        return new Vector(rows[index]);
     }
 
-    public void setString(int index, Vector vector) {
-        if (vector.getSize() <= 0) {
-            throw new IllegalArgumentException("Не верная размерность переданного вектора");
+    public void setRow(int index, Vector vector) {
+        if (index < 0 || index >= this.rows.length) {
+            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
-        if (index < 0 || index >= this.strings.length) {
-            throw new IllegalArgumentException("Передан не верный индекс");
+        if (vector.getSize() != this.rows[index].getSize()) {
+            throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью строки матрицы");
         }
-        this.strings[index] = new Vector(vector);
+        this.rows[index] = new Vector(vector);
     }
 
     public Vector getColumn(int index) {
-        if (index < 0 || index > this.strings.length) {
-            throw new IllegalArgumentException("Передан не верный индекс");
+        if (index < 0 || index > this.rows.length) {
+            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
 
-        Vector columnVector = new Vector(this.strings.length);
-        for (int i = 0; i < this.strings.length; ++i) {
-            columnVector.setComponent(i, this.strings[i].getComponent(index));
+        Vector columnVector = new Vector(this.rows.length);
+        for (int i = 0; i < this.rows.length; ++i) {
+            columnVector.setComponent(i, this.rows[i].getComponent(index));
         }
         return columnVector;
     }
 
     public Matrix transpose() {
-        Matrix transposeMatrix = new Matrix(this.strings.length, this.strings[0].getSize());
-        for (int i = 0; i < this.strings[0].getSize(); ++i) {
-            transposeMatrix.setString(i, getColumn(i));
+        Matrix transposeMatrix = new Matrix(this.rows.length, this.rows[0].getSize());
+        for (int i = 0; i < this.rows[0].getSize(); ++i) {
+            transposeMatrix.setRow(i, getColumn(i));
         }
         return transposeMatrix;
     }
 
-    public void multiplicationOnScalar(int scalar) {
-        for (Vector e : this.strings) {
+    public void multiplyOnScalar(int scalar) {
+        for (Vector e : this.rows) {
             e.multiplicationOnScalar(scalar);
         }
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(this.strings)
+        return Arrays.toString(this.rows)
                 .replace("[", "{")
                 .replace("]", "}");
     }
 
     public Vector getMultiplicationOnVector(Vector vector) {
-        for (Vector e : this.strings) {
+        for (Vector e : this.rows) {
             if (vector.getSize() != e.getSize()) {
                 throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью матрицы");
             }
         }
-        Vector multiplicationVector = new Vector(this.strings.length);
-        for (int i = 0; i < this.strings.length; ++i) {
-            multiplicationVector.setComponent(i, Vector.getScalarMultiplication(this.strings[i], vector));
+        Vector multiplicationVector = new Vector(this.rows.length);
+        for (int i = 0; i < this.rows.length; ++i) {
+            multiplicationVector.setComponent(i, Vector.getScalarMultiplication(this.rows[i], vector));
         }
         return multiplicationVector;
     }
 
     public void sum(Matrix matrix) {
-        for (int i = 0; i < this.strings.length; ++i) {
-            if (this.strings[i].getSize() != matrix.strings[i].getSize()) {
+        for (int i = 0; i < this.rows.length; ++i) {
+            if (this.rows[i].getSize() != matrix.rows[i].getSize()) {
                 throw new IllegalArgumentException("Размерности матриц не совпадают");
             }
         }
-        for (int i = 0; i < this.strings.length; ++i) {
-            this.strings[i].sum(matrix.strings[i]);
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i].sum(matrix.rows[i]);
         }
     }
 
     public void difference(Matrix matrix) {
-        for (int i = 0; i < this.strings.length; ++i) {
-            if (this.strings[i].getSize() != matrix.strings[i].getSize()) {
+        for (int i = 0; i < this.rows.length; ++i) {
+            if (this.rows[i].getSize() != matrix.rows[i].getSize()) {
                 throw new IllegalArgumentException("Размерности матриц не совпадают");
             }
         }
-        for (int i = 0; i < this.strings.length; ++i) {
-            this.strings[i].difference(matrix.strings[i]);
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i].difference(matrix.rows[i]);
         }
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.strings.length; ++i) {
-            if (matrix1.strings[i].getSize() != matrix2.strings[i].getSize()) {
+        for (int i = 0; i < matrix1.rows.length; ++i) {
+            if (matrix1.rows[i].getSize() != matrix2.rows[i].getSize()) {
                 throw new IllegalArgumentException("Размерности матриц не совпадают");
             }
         }
@@ -162,8 +162,8 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.strings.length; ++i) {
-            if (matrix1.strings[i].getSize() != matrix2.strings[i].getSize()) {
+        for (int i = 0; i < matrix1.rows.length; ++i) {
+            if (matrix1.rows[i].getSize() != matrix2.rows[i].getSize()) {
                 throw new IllegalArgumentException("Размерности матриц не совпадают");
             }
         }
@@ -173,15 +173,15 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.strings.length; ++i) {
-            if (matrix1.strings[i].getSize() != matrix2.strings.length) {
+        for (int i = 0; i < matrix1.rows.length; ++i) {
+            if (matrix1.rows[i].getSize() != matrix2.rows.length) {
                 throw new IllegalArgumentException("Матрицы не согласованы");
             }
         }
         Matrix matrix2Copy = new Matrix(matrix2);
-        for (int i = 0; i < matrix1.strings[0].getSize(); ++i) {
-            for (int j = 0; j < matrix2.strings[0].getSize(); ++j) {
-                matrix2Copy.strings[i].setComponent(j, Vector.getScalarMultiplication(matrix1.strings[i], matrix2.getColumn(j)));
+        for (int i = 0; i < matrix1.rows[0].getSize(); ++i) {
+            for (int j = 0; j < matrix2.rows[0].getSize(); ++j) {
+                matrix2Copy.rows[i].setComponent(j, Vector.getScalarMultiplication(matrix1.rows[i], matrix2.getColumn(j)));
             }
         }
         return matrix2Copy;
