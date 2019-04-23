@@ -116,10 +116,8 @@ public class Matrix {
     }
 
     public Vector getMultiplicationOnVector(Vector vector) {
-        for (Vector e : this.rows) {
-            if (vector.getSize() != e.getSize()) {
-                throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью матрицы");
-            }
+        if (vector.getSize() != this.rows[0].getSize()) {
+            throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью матрицы");
         }
         Vector multiplicationVector = new Vector(this.rows.length);
         for (int i = 0; i < this.rows.length; ++i) {
@@ -129,10 +127,8 @@ public class Matrix {
     }
 
     public void sum(Matrix matrix) {
-        for (int i = 0; i < this.rows.length; ++i) {
-            if (this.rows[i].getSize() != matrix.rows[i].getSize()) {
-                throw new IllegalArgumentException("Размерности матриц не совпадают");
-            }
+        if (this.rows[0].getSize() != matrix.rows[0].getSize() || this.rows.length != matrix.rows.length) {
+            throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         for (int i = 0; i < this.rows.length; ++i) {
             this.rows[i].sum(matrix.rows[i]);
@@ -140,10 +136,8 @@ public class Matrix {
     }
 
     public void difference(Matrix matrix) {
-        for (int i = 0; i < this.rows.length; ++i) {
-            if (this.rows[i].getSize() != matrix.rows[i].getSize()) {
-                throw new IllegalArgumentException("Размерности матриц не совпадают");
-            }
+        if (this.rows[0].getSize() != matrix.rows[0].getSize() || this.rows.length != matrix.rows.length) {
+            throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         for (int i = 0; i < this.rows.length; ++i) {
             this.rows[i].difference(matrix.rows[i]);
@@ -151,10 +145,8 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.rows.length; ++i) {
-            if (matrix1.rows[i].getSize() != matrix2.rows[i].getSize()) {
-                throw new IllegalArgumentException("Размерности матриц не совпадают");
-            }
+        if (matrix1.rows[0].getSize() != matrix2.rows[0].getSize() || matrix1.rows.length != matrix2.rows.length) {
+            throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.sum(matrix2);
@@ -162,10 +154,8 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.rows.length; ++i) {
-            if (matrix1.rows[i].getSize() != matrix2.rows[i].getSize()) {
-                throw new IllegalArgumentException("Размерности матриц не совпадают");
-            }
+        if (matrix1.rows[0].getSize() != matrix2.rows[0].getSize() || matrix1.rows.length != matrix2.rows.length) {
+            throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.difference(matrix2);
@@ -173,16 +163,14 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        for (int i = 0; i < matrix1.rows.length; ++i) {
-            if (matrix1.rows[i].getSize() != matrix2.rows.length) {
-                throw new IllegalArgumentException("Матрицы не согласованы");
-            }
+        if (matrix1.getColumnsCount() != matrix2.rows.length || matrix1.rows[0].getSize() != matrix2.getColumn(0).getSize()) {
+            throw new IllegalArgumentException("Матрицы не согласованы");
         }
-        Matrix matrix2Copy = new Matrix(matrix2);
-        for (int i = 0; i < matrix1.rows[0].getSize(); ++i) {
+        Matrix matrix2Copy = new Matrix(matrix2.getColumnsCount(), matrix1.rows.length);
+        for (int i = 0; i < matrix2.rows[0].getSize(); ++i) {
             for (int j = 0; j < matrix2.rows[0].getSize(); ++j) {
                 matrix2Copy.rows[i].setComponent(j, Vector.getScalarMultiplication(matrix1.rows[i], matrix2.getColumn(j)));
-            }
+            }//todo разобраться с размерностью выходной матрицы
         }
         return matrix2Copy;
     }

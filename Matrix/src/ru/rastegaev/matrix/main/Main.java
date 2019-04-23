@@ -52,7 +52,7 @@ public class Main {
         System.out.println("Матрица 4: " + matrix4.toString());
         System.out.println("Матрица 5: " + matrix5.toString());
 
-        System.out.println(Matrix.getMultiplication(matrix2, matrix5).toString());
+        System.out.println(Matrix.getMultiplication(matrix4, matrix5).toString());
 
         System.out.println(matrix1.transpose().toString());
 
