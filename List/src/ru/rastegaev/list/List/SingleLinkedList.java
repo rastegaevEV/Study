@@ -20,8 +20,13 @@ public class SingleLinkedList<T> {
         this.head = head;
     }
 
-    public int getCount() {
-        return count;
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ListItem<T> item = this.head; item != null; item = item.getNext()) {
+            stringBuilder.append(item.getData()).append(" ");
+        }
+        return stringBuilder.toString();
     }
 
     public void print() {
@@ -38,11 +43,11 @@ public class SingleLinkedList<T> {
         return this.head.getData();
     }
 
-    public T getDataByIndex(int index) {
-        if (index < 1 || index > this.count) {
-            throw new IllegalArgumentException("Такого индекса в списке нет");
+    public T getDataViaIndex(int index) {
+        if (index < 0 || index >= this.count) {
+            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
-        int currentIndex = 1;
+        int currentIndex = 0;
         for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 return currentItem.getData();
@@ -52,11 +57,11 @@ public class SingleLinkedList<T> {
         return null;
     }
 
-    public T setByIndex(int index, T data) {
-        if (index < 1 || index > this.count) {
-            throw new IllegalArgumentException("Такого индекса в списке нет");
+    public T setViaIndex(int index, T data) {
+        if (index < 0 || index >= this.count) {
+            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
-        int currentIndex = 1;
+        int currentIndex = 0;
         for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 T oldData = currentItem.getData();
@@ -68,15 +73,15 @@ public class SingleLinkedList<T> {
         return null;
     }
 
-    public T deleteByIndex(int index) {
-        if (index < 1 || index > this.count) {
-            throw new IllegalArgumentException("Такого индекса в списке нет");
+    public T deleteViaIndex(int index) {
+        if (index < 0 || index >= this.count) {
+            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
-        if (index == 1) {
+        if (index == 0) {
             --this.count;
             return deleteFirst();
         }
-        int currentIndex = 2;
+        int currentIndex = 1;
         for (ListItem<T> currentItem = head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 previousItem.setNext(currentItem.getNext());
@@ -93,15 +98,15 @@ public class SingleLinkedList<T> {
         ++this.count;
     }
 
-    public void insertByIndex(int index, T data) {
-        if (index < 1 || index > this.count) {
-            throw new IllegalArgumentException("Такого индекса в списке нет");
+    public void insertViaIndex(int index, T data) {
+        if (index < 0 || index >= this.count) {
+            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
-        if (index == 1) {
+        if (index == 0) {
             addToTop(data);
         }
         ListItem<T> item = new ListItem<>(data);
-        int currentIndex = 2;
+        int currentIndex = 1;
         for (ListItem<T> currentItem = this.head.getNext(), previousItem = this.head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
             if (currentIndex == index) {
                 previousItem.setNext(item);
@@ -113,7 +118,7 @@ public class SingleLinkedList<T> {
         }
     }
 
-    public boolean ifDeleted(T data) {
+    public boolean deleted(T data) {
         if (this.head.getData().equals(data)) {
             deleteFirst();
             return true;
@@ -134,7 +139,7 @@ public class SingleLinkedList<T> {
         return deleteData;
     }
 
-    public void addToTheEnd(T data) {
+    public void addToTail(T data) {
         ListItem<T> item = new ListItem<>(data);
         for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
             if (currentItem.getNext() == null) {
@@ -163,7 +168,7 @@ public class SingleLinkedList<T> {
         this.head = new ListItem<>(list.head.getData());
         this.count = list.count;
         for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
-            addToTheEnd(item.getData());
+            addToTail(item.getData());
         }
     }
 }
