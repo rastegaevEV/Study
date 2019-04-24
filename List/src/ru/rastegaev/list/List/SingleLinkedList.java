@@ -8,16 +8,16 @@ public class SingleLinkedList<T> {
 
     }
 
-    public SingleLinkedList(ListItem<T> head) {
-        this.head = head;
+    public SingleLinkedList(T head) {
+        this.head = new ListItem<>(head);
     }
 
     public ListItem<T> getHead() {
         return head;
     }
 
-    public void setHead(ListItem<T> head) {
-        this.head = head;
+    public void setHead(T head) {
+        this.head = new ListItem<>(head);
     }
 
     @Override
@@ -57,20 +57,24 @@ public class SingleLinkedList<T> {
         return null;
     }
 
+    public ListItem<T> getIndexItem(int index) {
+        int currentIndex = 0;
+        for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
+            if (currentIndex == index) {
+                return currentItem;
+            }
+        }
+        return null;
+    }
+
     public T setViaIndex(int index, T data) {
         if (index < 0 || index >= this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
-        int currentIndex = 0;
-        for (ListItem<T> currentItem = this.head; currentItem != null; currentItem = currentItem.getNext()) {
-            if (currentIndex == index) {
-                T oldData = currentItem.getData();
-                currentItem.setData(data);
-                return oldData;
-            }
-            ++currentIndex;
-        }
-        return null;
+
+        T oldData = getIndexItem(index).getData();
+        getIndexItem(index).setData(data);
+        return oldData;
     }
 
     public T deleteViaIndex(int index) {

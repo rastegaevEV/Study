@@ -9,18 +9,18 @@ public class Main {
         list.addToTop(1);
         list.addToTop(2);
         list.addToTop(3);
-        list.addToTheEnd(9);
+        list.addToTail(9);
 
         list.print();
 
-        System.out.println("Удален элемент " + list.deleteByIndex(3));
+        System.out.println("Удален элемент " + list.deleteViaIndex(3));
 
         list.print();
 
         System.out.println("Вставка по индексу");
-        list.insertByIndex(1, 88);
+        list.insertViaIndex(1, 88);
         list.print();
-        System.out.println("Удаление элемента по значению: " + list.ifDeleted(88));
+        System.out.println("Удаление элемента по значению: " + list.deleted(88));
         list.print();
         System.out.println("Разворот списка");
         list.turn();
@@ -28,6 +28,8 @@ public class Main {
         System.out.println("Копирование");
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
         listCopy.print();
+        System.out.println(listCopy.setViaIndex(0, 345));
+
 
 
 
