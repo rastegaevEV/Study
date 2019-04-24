@@ -28,8 +28,16 @@ public class Main {
         System.out.println("Копирование");
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
         listCopy.print();
-        System.out.println(listCopy.setViaIndex(0, 345));
 
+
+        SingleLinkedList<Integer> list1 = new SingleLinkedList<>(listCopy);
+        System.out.println();
+        list1.print();
+        listCopy.setViaIndex(1, null);
+        System.out.println();
+        listCopy.print();
+        System.out.println();
+        list1.print();
 
 
 
