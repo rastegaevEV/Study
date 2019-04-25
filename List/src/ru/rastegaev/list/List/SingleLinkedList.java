@@ -18,8 +18,9 @@ public class SingleLinkedList<T> {
         }
         this.head = new ListItem<>(list.head.getData());
         for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
-            addToTail(item.getData());
+            new ListItem<T>(item.getData());//todo доделать
         }
+
     }
 
     public ListItem<T> getHead() {

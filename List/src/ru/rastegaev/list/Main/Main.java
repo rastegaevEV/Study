@@ -1,4 +1,4 @@
-package ru.rastegaev.list.Main;
+package ru.rastegaev.list.main;
 
 import ru.rastegaev.list.List.SingleLinkedList;
 
@@ -28,6 +28,7 @@ public class Main {
         System.out.println("Копирование");
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
         listCopy.print();
+        System.out.println(listCopy.toString());
 
 
         SingleLinkedList<Integer> list1 = new SingleLinkedList<>(listCopy);
@@ -38,22 +39,5 @@ public class Main {
         listCopy.print();
         System.out.println();
         list1.print();
-
-
-
-
-
-
-
-
-
-
-
-        /*ArrayList<String> list = new ArrayList<String>();
-        list.add("123");
-        list.add("345");
-        list.remove(0);
-        System.out.println(list);
-        list.ensureCapacity(20);*/
     }
 }
