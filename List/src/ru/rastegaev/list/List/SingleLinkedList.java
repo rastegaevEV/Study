@@ -22,7 +22,6 @@ public class SingleLinkedList<T> {
             addToTop(item.getData());
         }
         turn();
-
     }
 
     public ListItem<T> getHead() {
