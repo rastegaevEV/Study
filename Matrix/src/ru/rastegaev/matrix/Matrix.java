@@ -67,14 +67,14 @@ public class Matrix {
 
     public Vector getRow(int index) {
         if (index < 0 || index >= this.rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
+            throw new IndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
         return new Vector(rows[index]);
     }
 
     public void setRow(int index, Vector vector) {
         if (index < 0 || index >= this.rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
+            throw new IndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
         if (vector.getSize() != this.rows[index].getSize()) {
             throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью строки матрицы");
@@ -83,8 +83,8 @@ public class Matrix {
     }
 
     public Vector getColumn(int index) {
-        if (index < 0 || index > this.rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
+        if (index < 0 || index >= this.rows[0].getSize()) {
+            throw new IndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
 
         Vector columnVector = new Vector(this.rows.length);
@@ -94,12 +94,12 @@ public class Matrix {
         return columnVector;
     }
 
-    public Matrix transpose() {
-        Matrix transposeMatrix = new Matrix(this.rows.length, this.rows[0].getSize());
-        for (int i = 0; i < this.rows[0].getSize(); ++i) {
-            transposeMatrix.setRow(i, getColumn(i));
+    public void transpose() {
+        Matrix matrixCopy = new Matrix(this.rows);
+        this.rows = new Vector[matrixCopy.rows[0].getSize()];
+        for (int i = 0; i < this.rows.length; ++i) {
+            this.rows[i] = matrixCopy.getColumn(i);
         }
-        return transposeMatrix;
     }
 
     public void multiplyOnScalar(int scalar) {
@@ -166,12 +166,12 @@ public class Matrix {
         if (matrix1.getColumnsCount() != matrix2.rows.length || matrix1.rows[0].getSize() != matrix2.getColumn(0).getSize()) {
             throw new IllegalArgumentException("Матрицы не согласованы");
         }
-        Matrix matrix2Copy = new Matrix(matrix2.getColumnsCount(), matrix1.rows.length);
-        for (int i = 0; i < matrix2.rows[0].getSize(); ++i) {
+        Matrix multiplicationMatrix = new Matrix(matrix2.getColumnsCount(), matrix1.rows.length);
+        for (int i = 0; i < matrix1.rows.length; ++i) {
             for (int j = 0; j < matrix2.rows[0].getSize(); ++j) {
-                matrix2Copy.rows[i].setComponent(j, Vector.getScalarMultiplication(matrix1.rows[i], matrix2.getColumn(j)));
-            }//todo разобраться с размерностью выходной матрицы
+                multiplicationMatrix.rows[i].setComponent(j, Vector.getScalarMultiplication(matrix1.rows[i], matrix2.getColumn(j)));
+            }
         }
-        return matrix2Copy;
+        return multiplicationMatrix;
     }
 }
