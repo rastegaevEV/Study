@@ -17,9 +17,11 @@ public class SingleLinkedList<T> {
             throw new NullPointerException("Список пуст");
         }
         this.head = new ListItem<>(list.head.getData());
+        this.count = 0;
         for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
-            new ListItem<T>(item.getData());//todo доделать
+            addToTop(item.getData());
         }
+        turn();
 
     }
 
@@ -38,12 +40,6 @@ public class SingleLinkedList<T> {
             stringBuilder.append(item.getData()).append(" ");
         }
         return stringBuilder.toString();
-    }
-
-    public void print() {
-        for (ListItem<T> item = this.head; item != null; item = item.getNext()) {
-            System.out.println(item.getData());
-        }
     }
 
     public int getSize() {
@@ -146,7 +142,7 @@ public class SingleLinkedList<T> {
         }
     }
 
-    public boolean deleted(T data) {
+    public boolean delete(T data) {
         if (this.head == null) {
             throw new NullPointerException("Список пуст");
         }
