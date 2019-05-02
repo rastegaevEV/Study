@@ -14,12 +14,13 @@ public class SingleLinkedList<T> {
 
     public SingleLinkedList(SingleLinkedList<T> list) {
         if (list.head == null) {
-            throw new NullPointerException("Список пуст");
+            this.head = null;
+            return;
         }
         this.head = new ListItem<>(list.head.getData());
         this.count = 1;
         for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
-            addToTop(item.getData());
+            addToTop(item.getData());//todo доделать
         }
         turn();
     }
@@ -47,15 +48,12 @@ public class SingleLinkedList<T> {
 
     public T getFirstItemData() {
         if (this.head == null) {
-            throw new NullPointerException("Список пуст");
+            return null;
         }
         return this.head.getData();
     }
 
     private ListItem<T> getIndexItem(int index) {
-        if (this.head == null) {
-            throw new NullPointerException("Список пуст");
-        }
         int currentIndex = 0;
         for (ListItem<T> indexItem = this.head; indexItem != null; indexItem = indexItem.getNext()) {
             if (currentIndex == index) {
@@ -110,9 +108,6 @@ public class SingleLinkedList<T> {
     }
 
     public void insertViaIndex(int index, T data) {
-        if (this.head == null) {
-            throw new NullPointerException("Список пуст");
-        }
         if (index < 0 || index > this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
@@ -139,7 +134,7 @@ public class SingleLinkedList<T> {
 
     public boolean delete(T data) {
         if (this.head == null) {
-            throw new NullPointerException("Список пуст");
+            return false;
         }
         if (this.head.getData().equals(data)) {
             deleteFirst();
@@ -147,6 +142,11 @@ public class SingleLinkedList<T> {
             return true;
         }
         for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+            if (data == null && currentItem.getData() == null) {
+                previousItem.setNext(currentItem.getNext());
+                --this.count;
+                return true;
+            }
             if (currentItem.getData().equals(data)) {
                 previousItem.setNext(currentItem.getNext());
                 --this.count;
@@ -158,7 +158,7 @@ public class SingleLinkedList<T> {
 
     public T deleteFirst() {
         if (this.head == null) {
-            throw new NullPointerException("Список пуст");
+            return null;
         }
         T deleteData = this.head.getData();
         this.head = this.head.getNext();
@@ -169,6 +169,7 @@ public class SingleLinkedList<T> {
     public void addToTail(T data) {
         if (this.head == null) {
             addToTop(data);
+            return;
         }
         ListItem<T> item = new ListItem<>(data);
         for (ListItem<T> currentItem = head; currentItem != null; currentItem = currentItem.getNext()) {
@@ -182,7 +183,7 @@ public class SingleLinkedList<T> {
 
     public void turn() {
         if (this.head == null) {
-            throw new NullPointerException("Список пуст");
+            return;
         }
         ListItem<T> previousItem = null;
         for (ListItem<T> currentItem = this.head, nextItem = currentItem.getNext(); nextItem != null; currentItem = nextItem, nextItem = nextItem.getNext()) {

@@ -40,6 +40,11 @@ public class Main {
         System.out.println(listCopy);
         listCopy.insertViaIndex(0, 888);
         System.out.println(listCopy);
+        listCopy.insertViaIndex(1, null);
+        System.out.println(listCopy);
+        listCopy.delete(null);
+        System.out.println(listCopy);
+        System.out.println(empty.getDataViaIndex(0));
 
 
     }
