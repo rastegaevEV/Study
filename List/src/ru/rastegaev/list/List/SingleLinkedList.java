@@ -17,7 +17,7 @@ public class SingleLinkedList<T> {
             throw new NullPointerException("Список пуст");
         }
         this.head = new ListItem<>(list.head.getData());
-        this.count = 0;
+        this.count = 1;
         for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
             addToTop(item.getData());
         }
@@ -52,7 +52,7 @@ public class SingleLinkedList<T> {
         return this.head.getData();
     }
 
-    public ListItem<T> getIndexItem(int index) {
+    private ListItem<T> getIndexItem(int index) {
         if (this.head == null) {
             throw new NullPointerException("Список пуст");
         }
@@ -63,13 +63,10 @@ public class SingleLinkedList<T> {
             }
             ++currentIndex;
         }
-        return null;
+        return head;
     }
 
     public T getDataViaIndex(int index) {
-        if (this.head == null) {
-            throw new NullPointerException("Список пуст");
-        }
         if (index < 0 || index >= this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
@@ -77,9 +74,6 @@ public class SingleLinkedList<T> {
     }
 
     public T setViaIndex(int index, T data) {
-        if (this.head == null) {
-            throw new NullPointerException("Список пуст");
-        }
         if (index < 0 || index >= this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
@@ -90,9 +84,6 @@ public class SingleLinkedList<T> {
     }
 
     public T deleteViaIndex(int index) {
-        if (this.head == null) {
-            throw new NullPointerException("Список пуст");
-        }
         if (index < 0 || index >= this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
         }
@@ -122,11 +113,16 @@ public class SingleLinkedList<T> {
         if (this.head == null) {
             throw new NullPointerException("Список пуст");
         }
-        if (index < 0 || index >= this.count) {
+        if (index < 0 || index > this.count) {
             throw new IndexOutOfBoundsException("Такого индекса в списке нет");
+        }
+        if (index == this.count) {
+            addToTail(data);
+            return;
         }
         if (index == 0) {
             addToTop(data);
+            return;
         }
         ListItem<T> item = new ListItem<>(data);
         int currentIndex = 1;
@@ -147,11 +143,13 @@ public class SingleLinkedList<T> {
         }
         if (this.head.getData().equals(data)) {
             deleteFirst();
+            --this.count;
             return true;
         }
         for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
             if (currentItem.getData().equals(data)) {
                 previousItem.setNext(currentItem.getNext());
+                --this.count;
                 return true;
             }
         }
