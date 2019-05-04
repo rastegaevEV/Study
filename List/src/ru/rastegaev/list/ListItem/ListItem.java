@@ -1,4 +1,4 @@
-package ru.rastegaev.list.List;
+package ru.rastegaev.list.ListItem;
 
 public class ListItem<T> {
     private T data;

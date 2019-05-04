@@ -2,8 +2,6 @@ package ru.rastegaev.list.Main;
 
 import ru.rastegaev.list.List.SingleLinkedList;
 
-import java.sql.SQLOutput;
-
 public class Main {
     public static void main(String[] args) {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();

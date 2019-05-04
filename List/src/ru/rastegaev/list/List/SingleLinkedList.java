@@ -1,5 +1,7 @@
 package ru.rastegaev.list.List;
 
+import ru.rastegaev.list.ListItem.ListItem;
+
 public class SingleLinkedList<T> {
     private ListItem<T> head;
     private int count;
