@@ -5,31 +5,26 @@ public class SingleLinkedList<T> {
     private int count;
 
     public SingleLinkedList() {
-
-    }
-
-    public SingleLinkedList(T head) {
-        this.head = new ListItem<>(head);
     }
 
     public SingleLinkedList(SingleLinkedList<T> list) {
-        if (list.head == null) {
+        if (list.count == 0) {
             this.head = null;
             return;
         }
-        this.count = 0;
-        for (ListItem<T> item = list.head; item != null; item = item.getNext()) {
-            addToTop(item.getData());//todo доделать
+        this.count = list.count;
+        ListItem<T> item = list.head;
+        ListItem<T> nextItem = item.getNext();
+
+        ListItem<T> itemCopy = new ListItem<>(list.head.getData(), null);
+        this.head = itemCopy;
+
+        while (nextItem != null) {
+            ListItem<T> nextItemCopy = new ListItem<>(nextItem.getData(), null);
+            itemCopy.setNext(nextItemCopy);
+            itemCopy = nextItemCopy;
+            nextItem = nextItem.getNext();
         }
-        turn();
-    }
-
-    public ListItem<T> getHead() {
-        return head;
-    }
-
-    public void setHead(T head) {
-        this.head = new ListItem<>(head);
     }
 
     @Override
@@ -53,6 +48,9 @@ public class SingleLinkedList<T> {
     }
 
     private ListItem<T> getIndexItem(int index) {
+        if (index < 0 || index >= this.count) {
+            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
+        }
         int currentIndex = 0;
         for (ListItem<T> indexItem = this.head; indexItem != null; indexItem = indexItem.getNext()) {
             if (currentIndex == index) {
@@ -64,16 +62,10 @@ public class SingleLinkedList<T> {
     }
 
     public T getDataViaIndex(int index) {
-        if (index < 0 || index >= this.count) {
-            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
-        }
         return getIndexItem(index).getData();
     }
 
     public T setViaIndex(int index, T data) {
-        if (index < 0 || index >= this.count) {
-            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
-        }
         ListItem<T> indexItem = getIndexItem(index);
         T oldData = indexItem.getData();
         indexItem.setData(data);
@@ -81,24 +73,15 @@ public class SingleLinkedList<T> {
     }
 
     public T deleteViaIndex(int index) {
-        if (index < 0 || index >= this.count) {
-            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
-        }
         if (index == 0) {
             --this.count;
             return deleteFirst();
         }
-        int currentIndex = 1;
-
-        for (ListItem<T> currentItem = head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-            if (currentIndex == index) {
-                previousItem.setNext(currentItem.getNext());
-                --this.count;
-                return currentItem.getData();
-            }
-            ++currentIndex;
-        }
-        return null;
+        ListItem<T> previousItem = getIndexItem(index - 1);
+        ListItem<T> indexItem = previousItem.getNext();
+        previousItem.setNext(indexItem.getNext());
+        --this.count;
+        return indexItem.getData();
     }
 
     public void addToTop(T data) {
@@ -107,9 +90,6 @@ public class SingleLinkedList<T> {
     }
 
     public void insertViaIndex(int index, T data) {
-        if (index < 0 || index > this.count) {
-            throw new IndexOutOfBoundsException("Такого индекса в списке нет");
-        }
         if (index == this.count) {
             addToTail(data);
             return;
@@ -118,17 +98,12 @@ public class SingleLinkedList<T> {
             addToTop(data);
             return;
         }
-        ListItem<T> item = new ListItem<>(data);
-        int currentIndex = 1;
-        for (ListItem<T> currentItem = this.head.getNext(), previousItem = this.head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-            if (currentIndex == index) {
-                previousItem.setNext(item);
-                item.setNext(currentItem);
-                ++this.count;
-                return;
-            }
-            ++currentIndex;
-        }
+        ListItem<T> newItem = new ListItem<>(data);
+        ListItem<T> previousItem = getIndexItem(index - 1);
+        ListItem<T> indexItem = previousItem.getNext();
+        previousItem.setNext(newItem);
+        newItem.setNext(indexItem);
+        ++this.count;
     }
 
     public boolean delete(T data) {

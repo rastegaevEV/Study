@@ -30,22 +30,5 @@ public class Main {
         System.out.println("Копирование");
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
         System.out.println(listCopy.toString());
-        SingleLinkedList<Integer> empty = new SingleLinkedList<>();
-        System.out.println(listCopy.getSize());
-        listCopy.insertViaIndex(3, 8);
-        System.out.println(listCopy);
-        listCopy.insertViaIndex(4, 2);
-        System.out.println(listCopy);
-        System.out.println(listCopy.deleteViaIndex(0));
-        System.out.println(listCopy);
-        listCopy.insertViaIndex(0, 888);
-        System.out.println(listCopy);
-        listCopy.insertViaIndex(1, null);
-        System.out.println(listCopy);
-        listCopy.delete(null);
-        System.out.println(listCopy);
-        System.out.println(empty.getDataViaIndex(0));
-
-
     }
 }
