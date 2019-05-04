@@ -76,14 +76,14 @@ public class Matrix {
         if (index < 0 || index >= this.rows.length) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
-        if (vector.getSize() != this.rows[index].getSize()) {
+        if (vector.getSize() != getColumnsCount()) {
             throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью строки матрицы");
         }
         this.rows[index] = new Vector(vector);
     }
 
     public Vector getColumn(int index) {
-        if (index < 0 || index >= this.rows[0].getSize()) {
+        if (index < 0 || index >= getColumnsCount()) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы допустимых значений");
         }
 
@@ -96,7 +96,7 @@ public class Matrix {
 
     public void transpose() {
         Matrix matrixCopy = new Matrix(this.rows);
-        this.rows = new Vector[matrixCopy.rows[0].getSize()];
+        this.rows = new Vector[matrixCopy.getColumnsCount()];
         for (int i = 0; i < this.rows.length; ++i) {
             this.rows[i] = matrixCopy.getColumn(i);
         }
@@ -116,7 +116,7 @@ public class Matrix {
     }
 
     public Vector getMultiplicationOnVector(Vector vector) {
-        if (vector.getSize() != this.rows[0].getSize()) {
+        if (vector.getSize() != getColumnsCount()) {
             throw new IllegalArgumentException("Размерность переданного вектора не совпадает с размерностью матрицы");
         }
         Vector multiplicationVector = new Vector(this.rows.length);
@@ -127,7 +127,7 @@ public class Matrix {
     }
 
     public void sum(Matrix matrix) {
-        if (this.rows[0].getSize() != matrix.rows[0].getSize() || this.rows.length != matrix.rows.length) {
+        if (getColumnsCount() != matrix.getColumnsCount() || this.rows.length != matrix.rows.length) {
             throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         for (int i = 0; i < this.rows.length; ++i) {
@@ -136,7 +136,7 @@ public class Matrix {
     }
 
     public void difference(Matrix matrix) {
-        if (this.rows[0].getSize() != matrix.rows[0].getSize() || this.rows.length != matrix.rows.length) {
+        if (getColumnsCount() != matrix.getColumnsCount() || this.rows.length != matrix.rows.length) {
             throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         for (int i = 0; i < this.rows.length; ++i) {
@@ -145,7 +145,7 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.rows[0].getSize() != matrix2.rows[0].getSize() || matrix1.rows.length != matrix2.rows.length) {
+        if (matrix1.getColumnsCount() != matrix2.getColumnsCount() || matrix1.rows.length != matrix2.rows.length) {
             throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         Matrix matrix1Copy = new Matrix(matrix1);
@@ -154,7 +154,7 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.rows[0].getSize() != matrix2.rows[0].getSize() || matrix1.rows.length != matrix2.rows.length) {
+        if (matrix1.getColumnsCount() != matrix2.getColumnsCount() || matrix1.rows.length != matrix2.rows.length) {
             throw new IllegalArgumentException("Размерности матриц не совпадают");
         }
         Matrix matrix1Copy = new Matrix(matrix1);
@@ -163,12 +163,12 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getColumnsCount() != matrix2.rows.length || matrix1.rows[0].getSize() != matrix2.getColumn(0).getSize()) {
+        if (matrix1.getColumnsCount() != matrix2.rows.length) {
             throw new IllegalArgumentException("Матрицы не согласованы");
         }
         Matrix multiplicationMatrix = new Matrix(matrix2.getColumnsCount(), matrix1.rows.length);
         for (int i = 0; i < matrix1.rows.length; ++i) {
-            for (int j = 0; j < matrix2.rows[0].getSize(); ++j) {
+            for (int j = 0; j < matrix2.getColumnsCount(); ++j) {
                 multiplicationMatrix.rows[i].setComponent(j, Vector.getScalarMultiplication(matrix1.rows[i], matrix2.getColumn(j)));
             }
         }
