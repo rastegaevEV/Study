@@ -17,9 +17,8 @@ public class SingleLinkedList<T> {
             this.head = null;
             return;
         }
-        this.head = new ListItem<>(list.head.getData());
-        this.count = 1;
-        for (ListItem<T> item = list.head.getNext(); item != null; item = item.getNext()) {
+        this.count = 0;
+        for (ListItem<T> item = list.head; item != null; item = item.getNext()) {
             addToTop(item.getData());//todo доделать
         }
         turn();
