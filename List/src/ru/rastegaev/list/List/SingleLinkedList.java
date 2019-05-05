@@ -76,7 +76,6 @@ public class SingleLinkedList<T> {
 
     public T deleteViaIndex(int index) {
         if (index == 0) {
-            --this.count;
             return deleteFirst();
         }
         ListItem<T> previousItem = getIndexItem(index - 1);
