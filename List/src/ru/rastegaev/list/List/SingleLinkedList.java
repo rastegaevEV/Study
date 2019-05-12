@@ -120,20 +120,30 @@ public class SingleLinkedList<T> {
         if (this.head == null) {
             return false;
         }
-        if (this.head.getData().equals(data)) {
-            deleteFirst();
-            return true;
-        }
-        for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-            if (data == null && currentItem.getData() == null) {
-                previousItem.setNext(currentItem.getNext());
-                --this.count;
+
+        if (data == null) {
+            if (this.head.getData() == null) {
+                deleteFirst();
                 return true;
             }
-            if (currentItem.getData().equals(data)) {
-                previousItem.setNext(currentItem.getNext());
-                --this.count;
+            for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+                if (currentItem.getData() == null) {
+                    previousItem.setNext(currentItem.getNext());
+                    --this.count;
+                    return true;
+                }
+            }
+        } else {
+            if (data.equals(this.head.getData())) {
+                deleteFirst();
                 return true;
+            }
+            for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+                if (data.equals(currentItem.getData())) {
+                    previousItem.setNext(currentItem.getNext());
+                    --this.count;
+                    return true;
+                }
             }
         }
         return false;

@@ -27,8 +27,11 @@ public class Main {
         System.out.println(list.toString());
         System.out.println("Копирование");
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
-        System.out.println(listCopy.toString());
-        listCopy.insertViaIndex(2, null);
+        System.out.println(listCopy);
+        System.out.println();
+        listCopy.insertViaIndex(1, null);
+        System.out.println(listCopy);
         listCopy.delete(null);
+        System.out.println(listCopy);
     }
 }
