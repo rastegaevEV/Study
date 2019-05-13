@@ -18,9 +18,9 @@ public class Main {
         System.out.println(list.toString());
 
         System.out.println("Вставка по индексу");
-        list.insertViaIndex(1, 88);
+        list.insertViaIndex(1, 888);
         System.out.println(list.toString());
-        System.out.println("Удаление элемента по значению: " + list.delete(88));
+        System.out.println("Удаление элемента по значению: " + list.delete(888));
         System.out.println(list.toString());
         System.out.println("Разворот списка");
         list.turn();
@@ -29,7 +29,7 @@ public class Main {
         SingleLinkedList<Integer> listCopy = new SingleLinkedList<>(list);
         System.out.println(listCopy);
         System.out.println();
-        listCopy.insertViaIndex(1, null);
+        listCopy.insertViaIndex(3, null);
         System.out.println(listCopy);
         listCopy.delete(null);
         System.out.println(listCopy);

@@ -2,6 +2,8 @@ package ru.rastegaev.list.List;
 
 import ru.rastegaev.list.ListItem.ListItem;
 
+import java.util.Objects;
+
 public class SingleLinkedList<T> {
     private ListItem<T> head;
     private int count;
@@ -121,29 +123,17 @@ public class SingleLinkedList<T> {
             return false;
         }
 
-        if (data == null) {
-            if (this.head.getData() == null) {
-                deleteFirst();
+        if (Objects.equals(this.head.getData(), data)) {
+            deleteFirst();
+            return true;
+        }
+
+        for (ListItem<T> currentItem = this.head.getNext(), previousItem = head;
+             currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+            if (Objects.equals(currentItem.getData(), data)) {
+                previousItem.setNext(currentItem.getNext());
+                --this.count;
                 return true;
-            }
-            for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-                if (currentItem.getData() == null) {
-                    previousItem.setNext(currentItem.getNext());
-                    --this.count;
-                    return true;
-                }
-            }
-        } else {
-            if (data.equals(this.head.getData())) {
-                deleteFirst();
-                return true;
-            }
-            for (ListItem<T> currentItem = this.head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-                if (data.equals(currentItem.getData())) {
-                    previousItem.setNext(currentItem.getNext());
-                    --this.count;
-                    return true;
-                }
             }
         }
         return false;
