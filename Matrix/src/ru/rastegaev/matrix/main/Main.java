@@ -54,8 +54,8 @@ public class Main {
 
         System.out.println(Matrix.getMultiplication(matrix2, matrix5).toString());
 
-        matrix3.transpose();
-        System.out.println(matrix3.toString());
+        matrix4.transpose();
+        System.out.println(matrix4.toString());
 
         System.out.println(matrix2.getColumn(2).toString());
 
