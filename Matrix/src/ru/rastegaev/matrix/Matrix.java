@@ -95,11 +95,11 @@ public class Matrix {
     }
 
     public void transpose() {
-        Vector[] transposeRows = new Vector[getColumnsCount()];
+        Vector[] tempRows = new Vector[getColumnsCount()];
         for (int i = 0; i < getColumnsCount(); ++i) {
-            transposeRows[i] = new Vector(getColumn(i));
+            tempRows[i] = this.getColumn(i);
         }
-        this.rows = transposeRows;
+        this.rows = tempRows;
     }
 
     public void multiplyOnScalar(int scalar) {
