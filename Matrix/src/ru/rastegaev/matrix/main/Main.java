@@ -58,8 +58,7 @@ public class Main {
         System.out.println(matrix4.toString());
 
         System.out.println(matrix2.getColumn(2).toString());
-
-
+        System.out.println("Определитель матрицы: " + matrix2.getDeterminant());
     }
 }
 

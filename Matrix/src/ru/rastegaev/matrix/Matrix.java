@@ -25,6 +25,12 @@ public class Matrix {
     }
 
     public Matrix(double[][] numbers) {
+        if (numbers == null) {
+            throw new NullPointerException("Переданный массив не может быть равен Null");
+        }
+        if (numbers.length <= 0) {
+            throw new IllegalArgumentException("Размерность массива меньше или равна 0");
+        }
         int maxNumbersLength = 0;
         for (double[] number : numbers) {
             if (number.length > maxNumbersLength) {
@@ -34,7 +40,6 @@ public class Matrix {
         if (maxNumbersLength <= 0) {
             throw new IllegalArgumentException("Размерность матрицы меньше или равна 0");
         }
-
         this.rows = new Vector[numbers.length];
         for (int i = 0; i < numbers.length; ++i) {
             this.rows[i] = new Vector(maxNumbersLength, numbers[i]);
@@ -42,6 +47,12 @@ public class Matrix {
     }
 
     public Matrix(Vector[] vectors) {
+        if (vectors == null) {
+            throw new NullPointerException("Переданный массив не может быть равен Null");
+        }
+        if (vectors.length <= 0) {
+            throw new IllegalArgumentException("Размерность матрицы меньше или равна 0");
+        }
         int maxVectorSize = 0;
         for (Vector e : vectors) {
             if (e.getSize() > maxVectorSize) {
@@ -100,6 +111,39 @@ public class Matrix {
             tempRows[i] = this.getColumn(i);
         }
         this.rows = tempRows;
+    }
+
+    public double getDeterminant() {
+        int width = getColumnsCount();
+        int height = getRowsCount();
+
+        if (height != width) {
+            throw new IllegalArgumentException("Матрица должна быть квадратной");
+        }
+        if (width == 1) {
+            return rows[0].getComponent(0);
+        }
+        if (width == 2) {
+            return (this.rows[0].getComponent(0) * this.rows[1].getComponent(1)) -
+                    (this.rows[0].getComponent(1) * this.rows[1].getComponent(0));
+        }
+        Matrix copyMatrix = new Matrix(this);
+        double determinant = 0;
+        for (int i = 0; i < width; i++) {
+            double[][] tempArray = new double[height - 1][width - 1];
+            for (int j = 1; j < height; j++) {
+                int columnIndex = 0;
+                for (int m = 0; m < height; m++) {
+                    if (m == i) {
+                        continue;
+                    }
+                    tempArray[j - 1][columnIndex] = copyMatrix.rows[j].getComponent(m);
+                    columnIndex++;
+                }
+            }
+            determinant += copyMatrix.rows[0].getComponent(i) * Math.pow(-1, i) * new Matrix(tempArray).getDeterminant();
+        }
+        return determinant;
     }
 
     public void multiplyOnScalar(int scalar) {
