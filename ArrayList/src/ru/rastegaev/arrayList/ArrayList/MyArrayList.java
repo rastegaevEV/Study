@@ -40,6 +40,18 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{");
+        for (T item : this.items) {
+            stringBuilder.append(item).append(",");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
+
+    @Override
     public int size() {
         return 0;
     }
@@ -51,12 +63,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        for (T item: this.items) {
-            if (item.equals(o)) {
-                return true;
-            }
-        }
-        return false;
+        return indexOf(o) != -1;
     }
 
     @Override
@@ -66,16 +73,36 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(this.items, size);
     }
 
     @Override
-    public boolean add(Object o) {
-        return false;
+    public boolean add(T item) {
+        if (size == items.length) {
+            increaseCapacity();
+        }
+        this.items[size] = item;
+        ++size;
+        return true;
+    }
+
+    private void increaseCapacity() {
+        this.items = Arrays.copyOf(this.items, this.items.length * 2);
     }
 
     @Override
     public boolean remove(Object o) {
+        if (o == null) {
+            throw new NullPointerException("Значение не может равняться null");
+        }
+        if (o.getClass()!= this.getClass()) {
+            throw new ClassCastException("Тип переданного элемента не соответствует типу списка");
+        }
+
+        if (indexOf(o) != -1) {
+            remove(this.items[indexOf(o)]);
+            return true;
+        }
         return false;
     }
 
@@ -95,12 +122,12 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         return null;
     }
 
     @Override
-    public Object set(int index, Object element) {
+    public T set(int index, T element) {
         return null;
     }
 
@@ -110,13 +137,24 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public Object remove(int index) {
-        return null;
+    public T remove(int index) {
+        int temp = index;
+        T removeItem = this.items[index];
+        while (temp < size) {
+            this.items[temp] = this.items[temp + 1];
+            ++temp;
+        }
+        return removeItem;
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < this.items.length; ++i) {
+            if (this.items[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
