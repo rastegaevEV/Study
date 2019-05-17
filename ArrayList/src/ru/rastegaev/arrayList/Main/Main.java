@@ -7,16 +7,25 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        MyArrayList<String> list = new MyArrayList<>(6);
-        list.add("qwe");
-        list.add("asd");
-        list.add("zxc");
-        list.add("rty");
-        list.add("fgh");
+        MyArrayList<Integer> list = new MyArrayList<>(10);
+        ArrayList<Integer> listDefault = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        listDefault.add(55);
+        listDefault.add(66);
+        listDefault.add(77);
+        listDefault.add(88);
+        listDefault.add(99);
         System.out.println(list);
         list.remove(3);
         System.out.println(list);
-        list.remove("qwe");
+        list.remove(Integer.valueOf(3));
         System.out.println(list);
+        System.out.println(listDefault);
+        listDefault.addAll(list);
+        System.out.println(listDefault);
     }
 }

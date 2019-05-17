@@ -5,6 +5,7 @@ import java.util.*;
 public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int size;
+    private int modCount;
 
     public MyArrayList() {
         //noinspection unchecked
@@ -95,12 +96,10 @@ public class MyArrayList<T> implements List<T> {
         if (o == null) {
             throw new NullPointerException("Значение не может равняться null");
         }
-        if (o.getClass()!= this.getClass()) {
-            throw new ClassCastException("Тип переданного элемента не соответствует типу списка");
-        }
+        int removeIndex = indexOf(o);
 
         if (indexOf(o) != -1) {
-            remove(this.items[indexOf(o)]);
+            remove(removeIndex);
             return true;
         }
         return false;
@@ -108,11 +107,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection c) {
+
         return false;
     }
 
     @Override
     public boolean addAll(int index, Collection c) {
+
         return false;
     }
 
