@@ -19,13 +19,9 @@ public class Main {
         listDefault.add(77);
         listDefault.add(88);
         listDefault.add(99);
+        listDefault.add(100);
         System.out.println(list);
-        list.remove(3);
+        list.addAll(listDefault);
         System.out.println(list);
-        list.remove(Integer.valueOf(3));
-        System.out.println(list);
-        System.out.println(listDefault);
-        listDefault.addAll(list);
-        System.out.println(listDefault);
     }
 }

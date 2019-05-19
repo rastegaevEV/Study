@@ -5,7 +5,7 @@ import java.util.*;
 public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int size;
-    private int modCount;
+    private static int modCount = 0;
 
     public MyArrayList() {
         //noinspection unchecked
@@ -54,7 +54,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -68,8 +68,36 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public Iterator iterator() {
-        return null;
+    public Iterator<T> iterator() {
+        return new MyIterator() ;
+    }
+
+    private class MyIterator implements Iterator<T> {
+        private int currentIndex = -1;
+        private int modCount = MyArrayList.modCount;
+
+        public int getCurrentIndex () {
+            return currentIndex;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex + 1 != size;
+        }
+
+        @Override
+        public T next() {
+            if (currentIndex + 1 == size) {
+                throw new NoSuchElementException();
+            }
+            if (modCount != MyArrayList.modCount) {
+                throw new ConcurrentModificationException();
+            }
+            while (hasNext()) {
+                ++currentIndex;
+            }
+            return items[currentIndex];
+        }
     }
 
     @Override
@@ -100,20 +128,29 @@ public class MyArrayList<T> implements List<T> {
 
         if (indexOf(o) != -1) {
             remove(removeIndex);
+            ++modCount;
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean addAll(Collection c) {
-
-        return false;
+    public boolean addAll(Collection<? extends T> c) {
+        if (c == null) {
+            throw new NullPointerException("Коллекция не может равняться null");
+        }
+        Iterator<T> iterator = (Iterator<T>) c.iterator();
+        while (iterator.hasNext()) {
+            add(iterator.next());
+        }
+        return true;
     }
 
     @Override
-    public boolean addAll(int index, Collection c) {
-
+    public boolean addAll(int index, Collection<? extends T> c) {
+        Iterator<T> iteratorNew = (Iterator<T>) c.iterator();
+        Iterator<T> iteratorCurrent = (Iterator<T>) c.iterator();
+        //todo
         return false;
     }
 
@@ -145,6 +182,7 @@ public class MyArrayList<T> implements List<T> {
             this.items[temp] = this.items[temp + 1];
             ++temp;
         }
+        ++modCount;
         return removeItem;
     }
 
