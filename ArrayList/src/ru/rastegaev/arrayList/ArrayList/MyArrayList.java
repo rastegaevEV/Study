@@ -69,14 +69,14 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new MyIterator() ;
+        return new MyIterator();
     }
 
     private class MyIterator implements Iterator<T> {
         private int currentIndex = -1;
         private int modCount = MyArrayList.modCount;
 
-        public int getCurrentIndex () {
+        public int getCurrentIndex() {
             return currentIndex;
         }
 
@@ -119,6 +119,10 @@ public class MyArrayList<T> implements List<T> {
         this.items = Arrays.copyOf(this.items, this.items.length * 2);
     }
 
+    private void increaseCapacity(int capacity) {
+        this.items = Arrays.copyOf(this.items, capacity);
+    }
+
     @Override
     public boolean remove(Object o) {
         if (o == null) {
@@ -139,10 +143,11 @@ public class MyArrayList<T> implements List<T> {
         if (c == null) {
             throw new NullPointerException("Коллекция не может равняться null");
         }
-        Iterator<T> iterator = (Iterator<T>) c.iterator();
-        while (iterator.hasNext()) {
-            add(iterator.next());
+        Object[] cArray = c.toArray();
+        if (this.items.length < size + cArray.length) {
+            increaseCapacity(cArray.length);
         }
+
         return true;
     }
 
