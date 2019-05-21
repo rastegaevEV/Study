@@ -20,6 +20,12 @@ public class MyArrayList<T> implements List<T> {
         this.items = (T[]) new Object[capacity];
     }
 
+    private void indexCheck(int index) {
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("Индекса в списке нет");
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -143,39 +149,69 @@ public class MyArrayList<T> implements List<T> {
         if (c == null) {
             throw new NullPointerException("Коллекция не может равняться null");
         }
-        Object[] cArray = c.toArray();
-        if (this.items.length < size + cArray.length) {
-            increaseCapacity(cArray.length);
+        if (c.isEmpty()) {
+            return false;
         }
-
+        addAll(this.size, c);
         return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        Iterator<T> iteratorNew = (Iterator<T>) c.iterator();
-        Iterator<T> iteratorCurrent = (Iterator<T>) c.iterator();
+        if (c == null) {
+            throw new NullPointerException("Коллекция не может равняться null");
+        }
+        if (c.isEmpty()) {
+            return false;
+        }
+       indexCheck(index);
+       Object[] cArray = c.toArray();
+        if (this.items.length < size + c.size()) {
+            increaseCapacity(size + c.size());
+            System.out.println(Arrays.toString(this.items));
+        }
+        if (c.size() == 0) {
+            return false;
+        }
+        Object[] items = this.items;
+        int moveItems = size - index;
+        if (moveItems > 0) {
+            System.arraycopy(items,index,items,size + c.size() - moveItems,moveItems);
+            System.out.println(Arrays.toString(this.items));
+        }
+        System.arraycopy(cArray,0,items,index,cArray.length);
+        this.size += c.size();
+        ++modCount;
         //todo
         return false;
     }
 
     @Override
     public void clear() {
-
+        for(int i = 0; i < size; ++i) {
+            this.items[i] = null;
+        }
+        ++modCount;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        indexCheck(index);
+        return this.items[index];
     }
 
     @Override
     public T set(int index, T element) {
-        return null;
+        indexCheck(index);
+        T temp = this.items[index];
+        this.items[index] = element;
+        ++modCount;
+        return temp;
+
     }
 
     @Override
-    public void add(int index, Object element) {
+    public void add(int index, T element) {
 
     }
 

@@ -20,8 +20,12 @@ public class Main {
         listDefault.add(88);
         listDefault.add(99);
         listDefault.add(100);
+        listDefault.add(111);
         System.out.println(list);
         list.addAll(listDefault);
         System.out.println(list);
+        list.clear();
+        System.out.println(list);
+
     }
 }
