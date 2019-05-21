@@ -82,13 +82,9 @@ public class MyArrayList<T> implements List<T> {
         private int currentIndex = -1;
         private int modCount = MyArrayList.modCount;
 
-        public int getCurrentIndex() {
-            return currentIndex;
-        }
-
         @Override
         public boolean hasNext() {
-            return currentIndex + 1 != size;
+            return currentIndex + 1 < size;
         }
 
         @Override
@@ -118,6 +114,7 @@ public class MyArrayList<T> implements List<T> {
         }
         this.items[size] = item;
         ++size;
+        ++modCount;
         return true;
     }
 
@@ -139,6 +136,7 @@ public class MyArrayList<T> implements List<T> {
         if (indexOf(o) != -1) {
             remove(removeIndex);
             ++modCount;
+            --size;
             return true;
         }
         return false;
@@ -153,6 +151,8 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         addAll(this.size, c);
+        ++modCount;
+        size += c.size();
         return true;
     }
 
@@ -182,7 +182,6 @@ public class MyArrayList<T> implements List<T> {
         System.arraycopy(cArray,0,items,index,cArray.length);
         this.size += c.size();
         ++modCount;
-        //todo
         return false;
     }
 
@@ -192,6 +191,7 @@ public class MyArrayList<T> implements List<T> {
             this.items[i] = null;
         }
         ++modCount;
+        size = 0;
     }
 
     @Override
@@ -212,7 +212,15 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-
+        indexCheck(index);
+        if (this.items.length == size) {
+            increaseCapacity();
+        }
+        int replaceCount = size - index;
+        System.arraycopy(this.items,size - replaceCount, this.items, index + 1,replaceCount);
+        set(index, element);
+        ++modCount;
+        ++size;
     }
 
     @Override
@@ -224,13 +232,14 @@ public class MyArrayList<T> implements List<T> {
             ++temp;
         }
         ++modCount;
+        --size;
         return removeItem;
     }
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < this.items.length; ++i) {
-            if (this.items[i].equals(o)) {
+        for (int i = 0; i < size; ++i) {
+            if (Objects.equals(this.items[i],o)) {
                 return i;
             }
         }
@@ -239,7 +248,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        int lastIndex = -1;
+        for (int i = 0; i < size; ++i) {
+            if (Objects.equals(this.items[i],o)) {
+                lastIndex = i;
+            }
+        }
+        return lastIndex;
     }
 
     @Override

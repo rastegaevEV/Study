@@ -21,11 +21,13 @@ public class Main {
         listDefault.add(99);
         listDefault.add(100);
         listDefault.add(111);
+        listDefault.add(4);
         System.out.println(list);
         list.addAll(listDefault);
         System.out.println(list);
-        list.clear();
+        list.add(3,333);
         System.out.println(list);
-
+        System.out.println(list.lastIndexOf(4));
+        System.out.println(list.size());
     }
 }
