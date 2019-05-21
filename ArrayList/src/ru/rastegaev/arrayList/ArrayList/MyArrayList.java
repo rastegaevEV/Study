@@ -152,7 +152,6 @@ public class MyArrayList<T> implements List<T> {
         }
         addAll(this.size, c);
         ++modCount;
-        size += c.size();
         return true;
     }
 
