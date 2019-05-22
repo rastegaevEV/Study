@@ -3,6 +3,7 @@ package ru.rastegaev.arrayList.Main;
 import ru.rastegaev.arrayList.ArrayList.MyArrayList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
         MyArrayList<Integer> someList = new MyArrayList<>();
         someList.add(1);
         someList.add(5);
-        someList.add(9);
+        someList.add(155);
         list.add(1);
         list.add(2);
         list.add(3);
@@ -21,7 +22,7 @@ public class Main {
         list.add(1);
         list.add(7);
         list.add(5);
-        list.add(1);
+        list.add(155);
         listDefault.add(55);
         listDefault.add(66);
         listDefault.add(77);
@@ -33,6 +34,7 @@ public class Main {
         System.out.println(list);
         System.out.println(someList);
         System.out.println(list.containsAll(someList));
-
+        list.removeAll(someList);
+        System.out.println(list);
     }
 }
