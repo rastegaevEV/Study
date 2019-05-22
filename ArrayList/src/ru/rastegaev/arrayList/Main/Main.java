@@ -9,6 +9,9 @@ public class Main {
     public static void main(String[] args) {
         MyArrayList<Integer> list = new MyArrayList<>(10);
         ArrayList<Integer> listDefault = new ArrayList<>();
+        MyArrayList<Integer> someList = new MyArrayList<>();
+        someList.add(1);
+        someList.add(5);
         list.add(1);
         list.add(2);
         list.add(3);
@@ -23,11 +26,9 @@ public class Main {
         listDefault.add(111);
         listDefault.add(4);
         System.out.println(list);
-        list.addAll(listDefault);
+        System.out.println(someList);
+        list.retainAll(someList);
         System.out.println(list);
-        list.add(3,333);
-        System.out.println(list);
-        System.out.println(list.lastIndexOf(4));
-        System.out.println(list.size());
+
     }
 }
