@@ -12,11 +12,16 @@ public class Main {
         MyArrayList<Integer> someList = new MyArrayList<>();
         someList.add(1);
         someList.add(5);
+        someList.add(9);
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
+        list.add(1);
+        list.add(7);
+        list.add(5);
+        list.add(1);
         listDefault.add(55);
         listDefault.add(66);
         listDefault.add(77);
@@ -27,8 +32,7 @@ public class Main {
         listDefault.add(4);
         System.out.println(list);
         System.out.println(someList);
-        list.retainAll(someList);
-        System.out.println(list);
+        System.out.println(list.containsAll(someList));
 
     }
 }

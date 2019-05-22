@@ -302,16 +302,43 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");// todo
+        }
+        int removeMod = 0;
+        for (int i = 0; i < size; ++i) {
+            for (Object cItem : c) {
+                if (Objects.equals(this.items[i], cItem)) {
+                    remove(i);
+                    --i;
+                    ++removeMod;
+                    break;
+                }
+            }
+        }
+        trimToSize();
+        return removeMod > 0;
     }
 
     @Override
     public boolean containsAll(Collection c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");// todo
+        }
+        int coincidence = 0;
+        for (Object cItem : c) {
+            for (Object item : this) {
+                if (Objects.equals(cItem, item)) {
+                    ++coincidence;
+                    break;
+                }
+            }
+        }
+        return coincidence == c.size();
     }
 
     @Override
-    public Object[] toArray(Object[] a) {
-        return new Object[0];
+    public <T> T[] toArray(T[] a) {
+        return Arrays.copyOf(a, a.length); // todo
     }
 }
