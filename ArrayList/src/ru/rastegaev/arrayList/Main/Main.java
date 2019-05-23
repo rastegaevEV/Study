@@ -1,10 +1,9 @@
 package ru.rastegaev.arrayList.Main;
 
-import ru.rastegaev.arrayList.ArrayList.MyArrayList;
+import ru.rastegaev.arrayList.MyArrayList.MyArrayList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

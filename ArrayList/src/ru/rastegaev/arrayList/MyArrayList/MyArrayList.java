@@ -1,4 +1,4 @@
-package ru.rastegaev.arrayList.ArrayList;
+package ru.rastegaev.arrayList.MyArrayList;
 
 import java.util.*;
 
