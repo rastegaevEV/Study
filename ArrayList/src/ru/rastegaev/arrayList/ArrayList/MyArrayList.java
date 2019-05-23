@@ -177,7 +177,7 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         if (this.items.length < size + c.size()) {
-            increaseCapacity(size + c.size());
+            increaseCapacity();
         }
 
         Object[] items = this.items;
@@ -214,7 +214,6 @@ public class MyArrayList<T> implements List<T> {
         this.items[index] = element;
         ++modCount;
         return temp;
-
     }
 
     @Override
@@ -255,13 +254,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        int lastIndex = -1;
-        for (int i = 0; i < size; ++i) {
+        for (int i = this.size - 1; i >= 0; --i) {
             if (Objects.equals(this.items[i], o)) {
-                lastIndex = i;
+                return i;
             }
         }
-        return lastIndex;
+        return -1;
     }
 
     @Override
@@ -325,7 +323,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection c) {
         if (c == null) {
-            throw new NullPointerException("Коллекция не должна быть null");// todo
+            throw new NullPointerException("Коллекция не должна быть null");
         }
         if (c.isEmpty()) {
             return false;
@@ -339,14 +337,15 @@ public class MyArrayList<T> implements List<T> {
         return coincidence == c.size();
     }
 
+    @SuppressWarnings("TypeParameterHidesVisibleType")
     @Override
-    public <T1> T1[] toArray(T1[] a) {
+    public <T> T[] toArray(T[] a) {
         if (a == null) {
             throw new NullPointerException("Переданный массив не может равняться null");
         }
         if (a.length < this.size) {
             //noinspection unchecked
-            return (T1[]) Arrays.copyOf(this.items, size, a.getClass());
+            return (T[]) Arrays.copyOf(this.items, size, a.getClass());
         }
         //noinspection SuspiciousSystemArraycopy
         System.arraycopy(this.items, 0, a, 0, this.size);
