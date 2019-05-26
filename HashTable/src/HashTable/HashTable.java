@@ -33,7 +33,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        return lists[o.hashCode()].contains(o);
+        return lists[findCollectionIndex(o)].contains(o);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
-        return false;
+        return lists[t.hashCode()].add(t);
     }
 
     @Override
