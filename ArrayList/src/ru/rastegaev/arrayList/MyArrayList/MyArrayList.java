@@ -5,7 +5,7 @@ import java.util.*;
 public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int size;
-    private static int modCount = 0;
+    private int modCount = 0;
 
     public MyArrayList() {
         //noinspection unchecked
@@ -20,7 +20,7 @@ public class MyArrayList<T> implements List<T> {
         this.items = (T[]) new Object[capacity];
     }
 
-    private void indexCheck(int index) {
+    private void checkIndex(int index) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Индекса в списке нет");
         }
@@ -65,7 +65,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return this.items.length <= 0;
+        return size == 0;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class MyArrayList<T> implements List<T> {
 
     private class MyIterator implements Iterator<T> {
         private int currentIndex = -1;
-        private int modCount = MyArrayList.modCount;
+        private int expectedModCount = modCount;
 
         @Override
         public boolean hasNext() {
@@ -89,15 +89,13 @@ public class MyArrayList<T> implements List<T> {
 
         @Override
         public T next() {
-            if (currentIndex + 1 == size) {
+            if (!hasNext()) {
                 throw new NoSuchElementException("В списке больше нет элементов");
             }
-            if (modCount != MyArrayList.modCount) {
+            if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился во врмея прохода по нему");
             }
-            if (hasNext()) {
-                ++currentIndex;
-            }
+            ++currentIndex;
             return items[currentIndex];
         }
     }
@@ -122,18 +120,16 @@ public class MyArrayList<T> implements List<T> {
         this.items = Arrays.copyOf(this.items, this.items.length * 2);
     }
 
-    private void increaseCapacity(int capacity) {
-        this.items = Arrays.copyOf(this.items, capacity);
-    }
-
-    private void ensureCapacity(int minCapacity) {
+    public void ensureCapacity(int minCapacity) {
         if (this.items.length < minCapacity) {
             this.items = Arrays.copyOf(this.items, minCapacity);
         }
     }
 
-    private void trimToSize() {
-        this.items = Arrays.copyOf(this.items, size);
+    public void trimToSize() {
+        if (items.length < size) {
+            this.items = Arrays.copyOf(this.items, size);
+        }
     }
 
     @Override
@@ -143,7 +139,7 @@ public class MyArrayList<T> implements List<T> {
         }
         int removeIndex = indexOf(o);
 
-        if (indexOf(o) != -1) {
+        if (removeIndex != -1) {
             remove(removeIndex);
             return true;
         }
@@ -170,7 +166,7 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
-        indexCheck(index);
+        checkIndex(index);
         Object[] cArray = c.toArray();
 
         if (c.size() == 0) {
@@ -203,34 +199,33 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        indexCheck(index);
+        checkIndex(index);
         return this.items[index];
     }
 
     @Override
     public T set(int index, T element) {
-        indexCheck(index);
+        checkIndex(index);
         T temp = this.items[index];
         this.items[index] = element;
-        ++modCount;
         return temp;
     }
 
     @Override
     public void add(int index, T element) {
-        indexCheck(index);
+        checkIndex(index);
         if (this.items.length == size) {
             increaseCapacity();
         }
         int replaceCount = size - index;
-        System.arraycopy(this.items, size - replaceCount, this.items, index + 1, replaceCount);
-        set(index, element);
+        System.arraycopy(this.items, index, this.items, index + 1, replaceCount);
+        this.items[index] = element;
         ++size;
     }
 
     @Override
     public T remove(int index) {
-        indexCheck(index);
+        checkIndex(index);
         int temp = index;
         T removeItem = this.items[index];
         while (temp < size) {
@@ -282,9 +277,6 @@ public class MyArrayList<T> implements List<T> {
         if (c == null) {
             throw new NullPointerException("Коллекция не должна быть null");
         }
-        if (c.isEmpty()) {
-            return false;
-        }
         int removeMod = 0;
         for (int i = 0; i < size; ++i) {
             if (!c.contains(this.items[i])) {
@@ -293,7 +285,6 @@ public class MyArrayList<T> implements List<T> {
                 ++removeMod;
             }
         }
-        trimToSize();
         return removeMod > 0;
     }
 
@@ -306,17 +297,13 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         int removeMod = 0;
-        for (int i = 0; i < size; ++i) {
-            for (Object cItem : c) {
-                if (Objects.equals(this.items[i], cItem)) {
-                    remove(i);
-                    --i;
-                    ++removeMod;
-                    break;
-                }
+
+        for (Object cItem : c) {
+            while (this.contains(cItem)) {
+                remove(cItem);
+                ++removeMod;
             }
         }
-        trimToSize();
         return removeMod > 0;
     }
 
@@ -328,13 +315,13 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
-        int coincidence = 0;
+
         for (Object cItem : c) {
-            if (this.contains(cItem)) {
-                ++coincidence;
+            if (!this.contains(cItem)) {
+                return false;
             }
         }
-        return coincidence == c.size();
+        return true;
     }
 
     @SuppressWarnings("TypeParameterHidesVisibleType")

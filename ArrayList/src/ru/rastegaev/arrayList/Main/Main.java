@@ -32,13 +32,10 @@ public class Main {
         listDefault.add(111);
         listDefault.add(4);
         System.out.println(list);
-        System.out.println(list.lastIndexOf(155));
         System.out.println(someList);
         System.out.println(list.containsAll(someList));
-        list.removeAll(someList);
-        System.out.println(list);
-        list.toArray(array);
-        System.out.println(Arrays.toString(array));
+
+
 
     }
 }
