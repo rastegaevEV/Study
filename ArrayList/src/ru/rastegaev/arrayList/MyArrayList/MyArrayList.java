@@ -144,7 +144,7 @@ public class MyArrayList<T> implements List<T> {
         }
         checkIndex(index);
         ensureCapacity(this.size + c.size());
-        System.arraycopy(this.items,index,this.items,index + c.size(), this.size - index);
+        System.arraycopy(this.items, index, this.items, index + c.size(), this.size - index);
         int i = index;
         for (T cItem : c) {
             this.items[i] = cItem;
@@ -166,13 +166,17 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        checkIndex(index);
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Индекса в списке нет");
+        }
         return this.items[index];
     }
 
     @Override
     public T set(int index, T element) {
-        checkIndex(index);
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Индекса в списке нет");
+        }
         T temp = this.items[index];
         this.items[index] = element;
         return temp;
@@ -192,13 +196,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        checkIndex(index);
-        int temp = index;
-        T removeItem = this.items[index];
-        while (temp < size) {
-            this.items[temp] = this.items[temp + 1];
-            ++temp;
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Индекса в списке нет");
         }
+        T removeItem = this.items[index];
+
+        System.arraycopy(this.items, index + 1, this.items, index, this.size - (index + 1));
+
         ++modCount;
         --size;
         return removeItem;
