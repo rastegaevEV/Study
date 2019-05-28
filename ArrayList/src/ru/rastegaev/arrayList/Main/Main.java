@@ -14,28 +14,20 @@ public class Main {
         someList.add(1);
         someList.add(5);
         someList.add(155);
+        someList.add(null);
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
-        list.add(1);
-        list.add(7);
-        list.add(5);
         list.add(155);
         listDefault.add(55);
-        listDefault.add(66);
-        listDefault.add(77);
-        listDefault.add(88);
-        listDefault.add(99);
-        listDefault.add(100);
         listDefault.add(111);
         listDefault.add(4);
         System.out.println(list);
         System.out.println(someList);
         System.out.println(list.containsAll(someList));
-
-
-
+        list.addAll(3, someList);
+        System.out.println(list);
     }
 }
