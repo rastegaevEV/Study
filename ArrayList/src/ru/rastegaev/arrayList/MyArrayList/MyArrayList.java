@@ -27,34 +27,13 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MyArrayList<?> that = (MyArrayList<?>) o;
-        return size == that.size &&
-                Arrays.equals(items, that.items);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(size);
-        result = 31 * result + Arrays.hashCode(items);
-        return result;
-    }
-
-    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (T item : this.items) {
-            stringBuilder.append(item).append(",");
+        for (int i = 0; i < size; ++i) {
+            stringBuilder.append(this.items[i]).append(",");
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        stringBuilder.append("}");
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("}");
         return stringBuilder.toString();
     }
 
@@ -134,9 +113,6 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            throw new NullPointerException("Значение не может равняться null");
-        }
         int removeIndex = indexOf(o);
 
         if (removeIndex != -1) {
@@ -167,25 +143,16 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         checkIndex(index);
-        Object[] cArray = c.toArray();
-
-        if (c.size() == 0) {
-            return false;
+        ensureCapacity(this.size + c.size());
+        System.arraycopy(this.items,index,this.items,index + c.size(), this.size - index);
+        int i = index;
+        for (T cItem : c) {
+            this.items[i] = cItem;
+            ++i;
         }
-        if (this.items.length < size + c.size()) {
-            increaseCapacity();
-        }
-
-        Object[] items = this.items;
-        int moveItems = size - index;
-
-        if (moveItems > 0) {
-            System.arraycopy(items, index, items, size + c.size() - moveItems, moveItems);
-        }
-        System.arraycopy(cArray, 0, items, index, cArray.length);
         this.size += c.size();
         ++modCount;
-        return false;
+        return true;
     }
 
     @Override
