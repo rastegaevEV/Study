@@ -110,9 +110,8 @@ public class MyArrayList<T> implements List<T> {
     }
 
     public void trimToSize() {
-        if (this.items.length < this.size) {
+        if (this.items.length > this.size) {
             this.items = Arrays.copyOf(this.items, size);
-            ++modCount;
         }
     }
 

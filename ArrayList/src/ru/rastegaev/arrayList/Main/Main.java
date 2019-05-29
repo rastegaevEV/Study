@@ -30,5 +30,6 @@ public class Main {
         list.removeAll(someList);
         System.out.println(list);
         System.out.println(list.containsAll(emptyList));
+        System.out.println(list.size());
     }
 }
