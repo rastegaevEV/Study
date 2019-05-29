@@ -10,11 +10,12 @@ public class Main {
         MyArrayList<Integer> list = new MyArrayList<>(10);
         ArrayList<Integer> listDefault = new ArrayList<>();
         MyArrayList<Integer> someList = new MyArrayList<>();
-        Integer[] array = new Integer[10];
+        MyArrayList<Integer> emptyList = new MyArrayList<>();
         someList.add(1);
         someList.add(5);
         someList.add(155);
         someList.add(null);
+        someList.add(5);
         list.add(1);
         list.add(2);
         list.add(3);
@@ -26,8 +27,8 @@ public class Main {
         listDefault.add(4);
         System.out.println(list);
         System.out.println(someList);
-        System.out.println(list.containsAll(someList));
-        list.addAll(3, someList);
+        list.removeAll(someList);
         System.out.println(list);
+        System.out.println(list.containsAll(emptyList));
     }
 }
