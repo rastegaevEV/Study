@@ -31,13 +31,9 @@ public class MyArrayList<T> implements List<T> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
         for (int i = 0; i < size; ++i) {
-            if (i + 1 == size) {
-                stringBuilder.append(this.items[i]);
-            } else {
-                stringBuilder.append(this.items[i]).append(", ");
-            }
+            stringBuilder.append(this.items[i]).append(", ");
         }
-        stringBuilder.append("}");
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("}");
         return stringBuilder.toString();
     }
 
@@ -274,14 +270,18 @@ public class MyArrayList<T> implements List<T> {
         int removeMod = 0;
 
         for (Object cItem : c) {
-            remove(cItem);
-            ++removeMod;
+            while (remove(cItem)) {
+                ++removeMod;
+            }
         }
         return removeMod > 0;
     }
 
     @Override
     public boolean containsAll(Collection c) {
+        if (c == null) {
+            throw new NullPointerException("Переданная коллекция не может быть null");
+        }
         for (Object cItem : c) {
             if (!this.contains(cItem)) {
                 return false;

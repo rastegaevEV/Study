@@ -15,13 +15,13 @@ public class Main {
         someList.add(5);
         someList.add(155);
         someList.add(null);
-        someList.add(5);
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
         list.add(155);
+        list.add(5);
         listDefault.add(55);
         listDefault.add(111);
         listDefault.add(4);
