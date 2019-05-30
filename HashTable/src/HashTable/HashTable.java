@@ -41,6 +41,28 @@ public class HashTable<T> implements Collection<T> {
         return null;
     }
 
+    private class MyIteratot implements Iterator<T> {
+        int currentIndex = -1;
+        int expectedModCount = modCount;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex + 1 < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("В списке больше нет элементов");
+            }
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException("Список изменился во врмея прохода по нему");
+            }
+            ++currentIndex;
+            return null;
+        }
+    }
+
     @Override
     public Object[] toArray() {
         return new Object[0];
@@ -58,12 +80,17 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        return this.lists[o.hashCode()].remove(o);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
+    public boolean containsAll(Collection c) {
+        for (Object cItem : c) {
+            if (!this.contains(cItem)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
