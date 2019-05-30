@@ -1,4 +1,4 @@
-package HashTable;
+package ru.rastegaev.hashtable.HashTable;
 
 import java.util.*;
 
@@ -18,6 +18,20 @@ public class HashTable<T> implements Collection<T> {
     }
 
     @Override
+    public String toString() {
+        if (size == 0) {
+            return "Коллекция пуста";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; ++i) {
+            if (lists[i] != null) {
+                sb.append(i).append(": ").append(lists[i].toString()).append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -28,6 +42,9 @@ public class HashTable<T> implements Collection<T> {
     }
 
     private int findCollectionIndex(Object o) {
+        if (o == null) {
+            return 0;
+        }
         return Math.abs(o.hashCode() % lists.length);
     }
 
@@ -43,7 +60,9 @@ public class HashTable<T> implements Collection<T> {
 
     private class MyIteratot implements Iterator<T> {
         int currentIndex = -1;
+        int currentListIndex = 0;
         int expectedModCount = modCount;
+        int elementInList = 0;
 
         @Override
         public boolean hasNext() {
@@ -58,7 +77,11 @@ public class HashTable<T> implements Collection<T> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился во врмея прохода по нему");
             }
-            ++currentIndex;
+            if (lists[currentListIndex] != null && currentListIndex < size) {
+                lists[currentListIndex].get(elementInList);//todo
+            } else {
+                ++currentListIndex;
+            }
             return null;
         }
     }
@@ -75,6 +98,13 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
+        if (lists[t.hashCode()] == null) {
+            lists[t.hashCode()] = new ArrayList<>();
+            lists[t.hashCode()].add(t);
+            ++size;
+            return true;
+        }
+        ++size;
         return lists[t.hashCode()].add(t);
     }
 
