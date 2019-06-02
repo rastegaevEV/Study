@@ -25,7 +25,7 @@ public class HashTable<T> implements Collection<T> {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lists.length; ++i) {
             if (lists[i] != null) {
-                sb.append(i).append(": ").append(lists[i].toString()).append(System.lineSeparator());
+                sb.append("hash ").append(i).append(": ").append(lists[i].toString()).append(System.lineSeparator());
             }
         }
         return sb.toString();
@@ -50,7 +50,12 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        return lists[findCollectionIndex(o)].contains(o);
+        int oIndex = findCollectionIndex(o);
+
+        if (lists[oIndex] == null) {
+            return false;
+        }
+        return lists[oIndex].contains(o);
     }
 
     @Override
@@ -106,7 +111,21 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        if (a == null) {
+            throw new NullPointerException("Переданный массив не должен быть null.");
+        }
+
+        Object[] items = toArray();
+        if (a.length < size) {
+            //noinspection unchecked
+            return (T1[]) Arrays.copyOf(items, size, a.getClass());
+        }
+        //noinspection SuspiciousSystemArraycopy
+        System.arraycopy(items, 0, a, 0, size);
+        if (a.length > size) {
+            a[size] = null;
+        }
+        return a;
     }
 
     @Override
@@ -136,6 +155,10 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean containsAll(Collection c) {
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");
+        }
+
         for (Object cItem : c) {
             if (!this.contains(cItem)) {
                 return false;
@@ -146,21 +169,73 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");
+        }
+        if (c.isEmpty()) {
+            return true;
+        }
+
+        for (T item : c) {
+            add(item);
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");
+        }
+        if (c.isEmpty()) {
+            return true;
+        }
+        int removeItemIndex;
+        for (Object item : c) {
+            while (remove(item)) {
+                removeItemIndex = findCollectionIndex(item);
+                if (lists[removeItemIndex] == null) {
+                    break;
+                }
+                remove(item);
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");
+        }
+        if (c.isEmpty()) {
+            return true;
+        }
+
+        for (int i = 0; i < lists.length; ++i) {
+            if (lists[i] == null) {
+                continue;
+            }
+            for (int j = 0; j < lists[i].size(); ++j) {
+                if (!c.contains(lists[i].get(j))) {
+                    lists[i].remove(j);
+                    --j;
+                }
+
+            }
+            if (lists[i].isEmpty()) {
+                lists[i] = null;
+            }
+        }
+        return true;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < lists.length; ++i) {
+            lists[i] = null;
+        }
+        size = 0;
+        ++modCount;
     }
 }
