@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         HashTable<Integer> hash1 = new HashTable<>();
         HashTable<Integer> hash2 = new HashTable<>();
+
         hash1.add(5);
         hash1.add(2);
         hash1.add(2);
