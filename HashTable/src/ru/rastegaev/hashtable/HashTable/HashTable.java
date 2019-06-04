@@ -27,7 +27,7 @@ public class HashTable<T> implements Collection<T> {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lists.length; ++i) {
-            if (lists[i] != null) {
+            if (lists[i] != null && !lists[i].isEmpty()) {
                 sb.append("hash ").append(i).append(": ").append(lists[i].toString()).append(System.lineSeparator());
             }
         }
@@ -194,7 +194,7 @@ public class HashTable<T> implements Collection<T> {
             //noinspection SuspiciousMethodCalls
             while (lists[index] != null && lists[index].remove(cItem)) {
                 ++modCount;
-                --size; // todo надо ли это?
+                --size;
             }
         }
         return expectedModCount != modCount;
