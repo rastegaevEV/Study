@@ -4,7 +4,10 @@ import ru.rastegaev.lambda.Person.Person;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -38,5 +41,17 @@ public class Main {
         System.out.println(people.stream().filter(x -> x.getAge() > 20 && x.getAge() < 45)
                 .sorted((x1, x2) -> x2.getAge() - x1.getAge())
                 .map(Person::getName).collect(Collectors.joining(", ")));
+        System.out.println();
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Введите требуемое количество корней");
+        int number = scan.nextInt();
+        if (number < 0) {
+            throw new IllegalArgumentException("Число должно быть больше 0");
+        }
+        DoubleStream.iterate(0, x -> x + 1)
+                .map(Math::sqrt)
+                .limit(number)
+                .forEach(System.out::println);
     }
 }
