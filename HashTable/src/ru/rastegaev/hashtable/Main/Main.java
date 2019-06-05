@@ -21,14 +21,17 @@ public class Main {
 
         System.out.println(hash1);
         System.out.println(hash2);
-        for (Integer integer : hash1) {
-            System.out.println(integer);
+        System.out.println(hash1.remove(2));
+        System.out.println(hash1);
+        System.out.println(hash1.size());
+        for (Integer item : hash1) {
+            System.out.println(item);
         }
         System.out.println(hash1.removeAll(hash2));
         System.out.println(hash1);
 
-        for (Integer integer : hash1) {
-            System.out.println(integer);
+        for (Integer item : hash1) {
+            System.out.println(item);
         }
     }
 }

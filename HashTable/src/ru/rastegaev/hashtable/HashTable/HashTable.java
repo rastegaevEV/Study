@@ -143,17 +143,19 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         int removeIndex = findCollectionIndex(o);
+        boolean isDeleted = false;
         if (lists[removeIndex] != null) {
-            lists[removeIndex].remove(o);
+            isDeleted = lists[removeIndex].remove(o);
 
             if (lists[removeIndex].isEmpty()) {
                 lists[removeIndex] = null;
             }
+        }
+        if (isDeleted) {
             --size;
             ++modCount;
-            return true;
         }
-        return false;
+        return isDeleted;
     }
 
     @Override
