@@ -13,13 +13,22 @@ public class Main {
         hash1.add(5);
         hash1.add(8);
         hash1.add(569);
+        hash1.add(135);
 
-        hash2.add(155);
-        hash2.add(234);
+        hash2.add(2);
+        hash2.add(5);
         hash2.add(569);
+
         System.out.println(hash1);
+        System.out.println(hash2);
+        for (Integer integer : hash1) {
+            System.out.println(integer);
+        }
         System.out.println(hash1.removeAll(hash2));
         System.out.println(hash1);
-        System.out.println(hash1.size());
+
+        for (Integer integer : hash1) {
+            System.out.println(integer);
+        }
     }
 }

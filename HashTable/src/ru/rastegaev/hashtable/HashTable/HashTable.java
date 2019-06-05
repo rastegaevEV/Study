@@ -27,7 +27,7 @@ public class HashTable<T> implements Collection<T> {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lists.length; ++i) {
-            if (lists[i] != null && !lists[i].isEmpty()) {
+            if (lists[i] != null) {
                 sb.append("hash ").append(i).append(": ").append(lists[i].toString()).append(System.lineSeparator());
             }
         }
@@ -143,15 +143,40 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         int removeIndex = findCollectionIndex(o);
-        if (this.lists[removeIndex].remove(o)) {
-            --size;
+        if (lists[removeIndex] != null) {
+            lists[removeIndex].remove(o);
+
             if (lists[removeIndex].isEmpty()) {
                 lists[removeIndex] = null;
             }
+            --size;
             ++modCount;
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        if (c == null) {
+            throw new NullPointerException("Коллекция не должна быть null");
+        }
+        if (c.isEmpty()) {
+            return false;
+        }
+        int expectedModCount = modCount;
+        for (Object cItem : c) {
+            int index = findCollectionIndex(cItem);
+            //noinspection SuspiciousMethodCalls
+            while (lists[index] != null && lists[index].remove(cItem)) {
+                ++modCount;
+                --size;
+                if (lists[index].isEmpty()) {
+                    lists[index] = null;
+                }
+            }
+        }
+        return expectedModCount != modCount;
     }
 
     @Override
@@ -178,26 +203,6 @@ public class HashTable<T> implements Collection<T> {
             add(item);
         }
         return true;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        if (c == null) {
-            throw new NullPointerException("Коллекция не должна быть null");
-        }
-        if (c.isEmpty()) {
-            return false;
-        }
-        int expectedModCount = modCount;
-        for (Object cItem : c) {
-            int index = findCollectionIndex(cItem);
-            //noinspection SuspiciousMethodCalls
-            while (lists[index] != null && lists[index].remove(cItem)) {
-                ++modCount;
-                --size;
-            }
-        }
-        return expectedModCount != modCount;
     }
 
     @Override
